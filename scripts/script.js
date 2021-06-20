@@ -9,6 +9,11 @@ const cellGap = 3; // Gap between cells
 const gameGrid = []; // Array of game cells
 const defenders = []; // Array of defenders on game board
 let numberOfResources = 300;
+const enemies = [];
+const enemyPositions = [];
+let enemiesInterval = 600; // Enemy spawn interval
+let frame = 0;
+let gameOver = false;
 
 // mouse
 const mouse = {
@@ -84,7 +89,7 @@ class Defender {
     ctx.fillStyle = "blue";
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.fillStyle = "gold";
-    ctx.font = "30px arial";
+    ctx.font = "30px Orbitron";
     ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
   }
 }
@@ -92,33 +97,91 @@ canvas.addEventListener("click", function () {
   const gridPositionX = mouse.x - (mouse.x % cellSize);
   const gridPositionY = mouse.y - (mouse.y % cellSize);
   if (gridPositionY < cellSize) return; // Prevent defender being placed on controlsBar
-  for(let i = 0; i < defenders.length; i++){
-    if (defenders[i].x === gridPositionX && defenders[i].y === gridPositionY) // Prevent placing defenders on the same cell
-    return;
+  for (let i = 0; i < defenders.length; i++) {
+    if (defenders[i].x === gridPositionX && defenders[i].y === gridPositionY)
+      // Prevent placing defenders on the same cell
+      return;
   }
   let defenderCost = 100; // Resource cost of each defender
-  if (numberOfResources >= defenderCost){
+  if (numberOfResources >= defenderCost) {
     defenders.push(new Defender(gridPositionX, gridPositionY)); // If resources > cost, place defender at mouse location
     numberOfResources -= defenderCost; // Pay resources
   }
 });
 // Draw defenders array on game board
-function handleDefenders(){
-  for (let i = 0; i < defenders.length; i++){
+function handleDefenders() {
+  for (let i = 0; i < defenders.length; i++) {
     defenders[i].draw();
+    // Check collision between defender and enemies
+    for (let j = 0; j < enemies.length; j++){
+      if (collision(defenders[i], enemies[j])){
+        enemies[j].movement = 0;
+        defenders[i].health -= 0.2;
+      }
+       // If defender health less than 0, remove defender
+      if (defenders[i] && defenders[i].health<=0) {
+        defenders.splice(i,1);
+        i--;
+        enemies[j].movement = enemies[j].speed;
+      }
+    }
   }
 }
 
 // ENEMIES
+class Enemy {
+  constructor(verticalPosition) {
+    this.x = canvas.width;
+    this.y = verticalPosition;
+    this.with = cellSize;
+    this.height = cellSize;
+    this.speed = Math.random() * 0.2 + 0.4;
+    this.movement = this.speed;
+    this.health = 100;
+    this.maxHealth = this.health;
+  }
+  // Moves enemy slowly to the left
+  update() {
+    this.x -= this.movement;
+  }
+  draw() {
+    ctx.fillStyle = "red"; // Draw enemy box
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "black"; // Draws enemy health points
+    ctx.font = "30px Orbitron";
+    ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
+  }
+}
+// Draws enemies array one time
+function handleEnemies() {
+  for (let i = 0; i < enemies.length; i++) {
+    enemies[i].update();
+    enemies[i].draw();
+    if (enemies[i].x < 0){
+      gameOver = true;
+  }
+  }
+  if (frame % enemiesInterval === 0) {
+    let verticalPosition = Math.floor(Math.random() * 5 + 1) * cellSize;
+    enemies.push(new Enemy(verticalPosition, verticalPosition));
+    enemyPositions.push(verticalPosition);
+    if (enemiesInterval > 120) enemiesInterval -= 50;
+  }
+}
 
 // RESOURCES
 
 // UTILITIES
 // Draw game status on game bar (resources, defenders, etc)
-function handleGameStatus(){
-  fillStyle = 'gold';
-  ctx.font = '30px Arial';
-  ctx.fillText('Resources: ' + numberOfResources, 20 , 55);
+function handleGameStatus() {
+  fillStyle = "gold";
+  ctx.font = "30px Orbitron";
+  ctx.fillText("Resources: " + numberOfResources, 20, 55);
+   if (gameOver){
+        ctx.fillStyle = 'black';
+        ctx.font = '90px Orbitron';
+        ctx.fillText('GAME OVER', 135, 330);
+   }
 }
 
 // Animation loop (basically a digital flipbook)
@@ -128,10 +191,13 @@ function animate() {
   ctx.fillRect(0, 0, controlsBar.width, controlsBar.height);
   handleGameGrid();
   handleDefenders();
+  handleEnemies();
   handleGameStatus();
-  requestAnimationFrame(animate); //Callback function calls itself to loop through itself
+  frame++;
+  if (!gameOver) requestAnimationFrame(animate); //Callback function calls itself to loop through itself
 }
 animate();
+
 // Collision detection function
 function collision(first, second) {
   // If any of these comparisons return true, it means there is no collision. But we use the ! operator to say "if collision is false, execute following code. else, collision is true."
