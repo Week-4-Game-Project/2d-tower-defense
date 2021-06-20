@@ -20,4 +20,5 @@ We got this guys! Our game is going to kick ass :)
 <a href="https://www.youtube.com/watch?v=mpvNwYmTMJ4"> JavaScript Game Tutorial - 2D Tower Defense PART 2</a><br>
 <a href="https://www.youtube.com/watch?v=Eg_zUEy_lDE&list=PLYElE_rzEw_sowQGjRdvwh9eAEt62d_Eu"> Audio Visual Effects in JavaScript Games</a><br>
 <a href="https://www.youtube.com/watch?v=jl29qI62XPg"> JavaScript 2D Game Tutorial (optional)</a><br>
+<a href="https://codepen.io/franksLaboratory/pen/OJbJxJJ?editors=0110"> CodePen Home Tower Defense Base Game V2</a><br>
 <a href="https://idakroniczaja.github.io/Game/"> Funny game example :]</a><br>
