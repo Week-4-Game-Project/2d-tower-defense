@@ -7,6 +7,8 @@ canvas.height = 600;
 const cellSize = 100; // Size of each game board cell
 const cellGap = 3; // Gap between cells
 const gameGrid = []; // Array of game cells
+const defenders = []; // Array of defenders on game board
+let numberOfResources = 300;
 
 // mouse
 const mouse = {
@@ -41,7 +43,8 @@ class Cell {
     this.height = cellSize;
   }
   draw() {
-    if (mouse.x && mouse.y && collision(this, mouse)) { // Cell highlight on mouseover: If mouse x and y have coordinates (ie. not outside canvas), AND there is collision between THIS cell object and MOUSE, then draw() the cell outline
+    if (mouse.x && mouse.y && collision(this, mouse)) {
+      // Cell highlight on mouseover: If mouse x and y have coordinates (ie. not outside canvas), AND there is collision between THIS cell object and MOUSE, then draw() the cell outline
       ctx.strokeStyle = "black";
       ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
@@ -66,18 +69,66 @@ function handleGameGrid() {
 // PROJECTILES
 
 // DEFENDERS
+class Defender {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.width = cellSize;
+    this.height = cellSize;
+    this.shooting = false; // Is there an enemy in my row?
+    this.health = 100;
+    this.projectiles = []; // Projectiles I am currently shooting
+    this.timer = 0; // Periodically trigger defender actions
+  }
+  draw() {
+    ctx.fillStyle = "blue";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "gold";
+    ctx.font = "30px arial";
+    ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
+  }
+}
+canvas.addEventListener("click", function () {
+  const gridPositionX = mouse.x - (mouse.x % cellSize);
+  const gridPositionY = mouse.y - (mouse.y % cellSize);
+  if (gridPositionY < cellSize) return; // Prevent defender being placed on controlsBar
+  for(let i = 0; i < defenders.length; i++){
+    if (defenders[i].x === gridPositionX && defenders[i].y === gridPositionY) // Prevent placing defenders on the same cell
+    return;
+  }
+  let defenderCost = 100; // Resource cost of each defender
+  if (numberOfResources >= defenderCost){
+    defenders.push(new Defender(gridPositionX, gridPositionY)); // If resources > cost, place defender at mouse location
+    numberOfResources -= defenderCost; // Pay resources
+  }
+});
+// Draw defenders array on game board
+function handleDefenders(){
+  for (let i = 0; i < defenders.length; i++){
+    defenders[i].draw();
+  }
+}
 
 // ENEMIES
 
 // RESOURCES
 
 // UTILITIES
+// Draw game status on game bar (resources, defenders, etc)
+function handleGameStatus(){
+  fillStyle = 'gold';
+  ctx.font = '30px Arial';
+  ctx.fillText('Resources: ' + numberOfResources, 20 , 55);
+}
+
 // Animation loop (basically a digital flipbook)
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "blue";
   ctx.fillRect(0, 0, controlsBar.width, controlsBar.height);
   handleGameGrid();
+  handleDefenders();
+  handleGameStatus();
   requestAnimationFrame(animate); //Callback function calls itself to loop through itself
 }
 animate();
