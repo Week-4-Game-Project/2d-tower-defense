@@ -11,7 +11,7 @@ let enemiesInterval = 600; // Enemy spawn interval
 let frame = 0;
 let gameOver = false;
 let score = 0;
-const winningScore = 20;
+const winningScore = 200;
 
 const gameGrid = []; // Array of game cells
 const defenders = []; // Array of defenders on game board
