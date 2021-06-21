@@ -367,7 +367,7 @@ canvas.addEventListener("click", function () {
 // Animation loop (basically a digital flipbook)
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "blue";
+  ctx.fillStyle = "rgba(0, 0, 0, 0.1";
   ctx.fillRect(0, 0, controlsBar.width, controlsBar.height);
   handleGameGrid();
   handleDefenders();

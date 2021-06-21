@@ -1,6 +1,6 @@
 body {
   /* background: black; */
-  background-image: url('../images/cool-wallpapers-hd-8087-8418-hd-wallpapers.jpg')
+  background-image: url("../images/cool-wallpapers-hd-8087-8418-hd-wallpapers.jpg");
 }
 
 #canvas {
@@ -11,6 +11,8 @@ body {
   transform: translate(-50%, -50%);
   width: 900px;
   height: 600px;
-  background: white;
-  font-family: 'Orbitron', sans-serif;
+  background-image: url("../images/background.png");
+  font-family: "Orbitron", sans-serif;
+}
+  /*background-image: url("../images/canvas-background.jpeg");*?
 }
