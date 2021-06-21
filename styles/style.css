@@ -1,6 +1,9 @@
 body {
   /* background: black; */
   background-image: url("../images/cool-wallpapers-hd-8087-8418-hd-wallpapers.jpg");
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #canvas {
@@ -14,5 +17,14 @@ body {
   background-image: url("../images/background.png");
   font-family: "Orbitron", sans-serif;
 }
-  /*background-image: url("../images/canvas-background.jpeg");*?
+
+#start-button {
+  font-size: 30px;
+  background-color: #870007;
+  color: #fff;
+  padding: 20px 40px;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 5px;
+  margin-bottom: 20px;  
 }

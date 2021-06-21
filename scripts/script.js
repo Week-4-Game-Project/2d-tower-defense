@@ -379,7 +379,22 @@ function animate() {
   frame++;
   if (!gameOver) requestAnimationFrame(animate); //Callback function calls itself to loop through itself
 }
-animate();
+
+// Call animate function manually
+function startGame() {
+  console.log("startGame() function called!"); //debug
+  animate();
+}
+// animate(); // Start game upon page load
+//testcomment, delete please
+
+// Start game using button
+window.onload = () => {
+  document.getElementById("start-button").onclick = () => {
+    console.log("Start button clicked!");
+    startGame();
+  };
+};
 
 // Collision detection function
 function collision(first, second) {
