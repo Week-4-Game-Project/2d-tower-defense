@@ -215,6 +215,18 @@ function handleFloatingMessags() {
     }
   }
 }
+const enemyTypes = [];
+const enemy1 = new Image();
+enemy1.src = "../images/enemy1.png";
+enemyTypes.push(enemy1);
+
+const enemy2 = new Image();
+enemy2.src = "../images/enemy2.png";
+enemyTypes.push(enemy2);
+
+const enemy3 = new Image();
+enemy3.src = "../images/enemy3.png";
+enemyTypes.push(enemy3);
 
 // ENEMIES
 class Enemy {
@@ -227,17 +239,39 @@ class Enemy {
     this.movement = this.speed;
     this.health = 100;
     this.maxHealth = this.health;
+    this.enemyType = enemyTypes[Math.floor(Math.random() * enemyTypes.length)];
+    this.frameX = 0;
+    this.frameY = 0;
+    this.minFrame = 0;
+    this.maxFrame = 11;
+    this.spriteWidth = 130;
+    this.spriteHeight = 130;
   }
   // Moves enemy slowly to the left
   update() {
     this.x -= this.movement;
+    if (frame % 10 === 0) {
+      if (this.frameX < this.maxFrame) this.frameX++;
+      else this.frameX = this.minFrame;
+    }
   }
   draw() {
-    ctx.fillStyle = "red"; // Draw enemy box
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = "black"; // Draws enemy health points
-    ctx.font = "30px Orbitron";
-    ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
+    // ctx.fillStyle = "red"; // Draw enemy box
+    // ctx.fillRect(this.x, this.y, this.width, this.height);
+    //ctx.fillStyle = "black"; // Draws enemy health points
+    // ctx.font = "30px Orbitron";
+    // ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
+    ctx.drawImage(
+      this.enemyType,
+      this.frameX * this.spriteWidth,
+      0,
+      this.spriteWidth,
+      this.spriteHeight,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
   }
 }
 // Draws enemies array one time
