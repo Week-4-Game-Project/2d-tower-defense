@@ -151,22 +151,7 @@ class Defender {
     }
   }
 }
-// Defender summon on mouse click
-canvas.addEventListener("click", function () {
-  const gridPositionX = mouse.x - (mouse.x % cellSize) + cellGap;
-  const gridPositionY = mouse.y - (mouse.y % cellSize) + cellGap;
-  if (gridPositionY < cellSize) return; // Prevent defender being placed on controlsBar
-  for (let i = 0; i < defenders.length; i++) {
-    if (defenders[i].x === gridPositionX && defenders[i].y === gridPositionY)
-      // Prevent placing defenders on the same cell
-      return;
-  }
-  let defenderCost = 100; // Resource cost of each defender
-  if (numberOfResources >= defenderCost) {
-    defenders.push(new Defender(gridPositionX, gridPositionY)); // If resources > cost, place defender at mouse location
-    numberOfResources -= defenderCost; // Pay resources
-  }
-});
+
 // Draw defenders array on game board
 function handleDefenders() {
   for (let i = 0; i < defenders.length; i++) {
@@ -198,29 +183,38 @@ function handleDefenders() {
 // FLOATING MESSAGES
 const floatingMessages = [];
 class floatingMessage {
-  constructor(value, x, y, size,color){
-this.value = value;
-this.x=x;
-this.y=y;
-this.size = size;
-this.lifeSpan = 0;
-this.color = color;
-this.opacity = 1;
+  constructor(value, x, y, size, color) {
+    this.value = value;
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.lifeSpan = 0;
+    this.color = color;
+    this.opacity = 1;
   }
-  update(){
+  update() {
     this.y -= 0.3;
-    this.lifeSpan+= 1;
-    if(this.opacity > 0.01) this.opacity -= 0.01;
+    this.lifeSpan += 1;
+    if (this.opacity > 0.01) this.opacity -= 0.03;
   }
-  draw(){
+  draw() {
     ctx.globalAlpha = this.opacity;
     ctx.fillStyle = this.color;
-    ctx.font = this.size + 'px Orbitron';
-    ctx.fillText(this.value,this.x,this.y);
+    ctx.font = this.size + "px Orbitron";
+    ctx.fillText(this.value, this.x, this.y);
     ctx.globalAlpha = 1;
   }
 }
-
+function handleFloatingMessags() {
+  for (let i = 0; i < floatingMessages.length; i++) {
+    floatingMessages[i].update();
+    floatingMessages[i].draw();
+    if (floatingMessages[i].lifeSpan >= 50) {
+      floatingMessages.splice(i, 1);
+      i--;
+    }
+  }
+}
 
 // ENEMIES
 class Enemy {
@@ -256,6 +250,18 @@ function handleEnemies() {
     }
     if (enemies[i].health <= 0) {
       let gainedResources = enemies[i].maxHealth / 10; // Resources gained from killing enemy
+      floatingMessages.push(
+        new floatingMessage(
+          "+" + gainedResources,
+          enemies[i].x,
+          enemies[i].y,
+          30,
+          "black"
+        )
+      );
+      floatingMessages.push(
+        new floatingMessage("+" + gainedResources, 250, 50, 30, "gold")
+      );
       numberOfResources += gainedResources; // Gain resources based on enemy health
       score += gainedResources; //Same for score
       const findThisIndex = enemyPositions.indexOf(enemies[i].y);
@@ -300,6 +306,18 @@ function handleResources() {
     resources[i].draw();
     if (resources[i] && mouse.x && mouse.y && collision(resources[i], mouse)) {
       numberOfResources += resources[i].amount;
+      floatingMessages.push(
+        new floatingMessage(
+          "+" + resources[i].amount,
+          resources[i].x,
+          resources[i].y,
+          30,
+          "black"
+        )
+      );
+      floatingMessages.push(
+        new floatingMessage("+" + resources[i].amount, 250, 50, 30, "gold")
+      );
       resources.splice(i, 1);
       i--;
     }
@@ -326,7 +344,26 @@ function handleGameStatus() {
     ctx.fillText("You win with " + score + " points!", 134, 340);
   }
 }
-
+// Defender summon on mouse click
+canvas.addEventListener("click", function () {
+  const gridPositionX = mouse.x - (mouse.x % cellSize) + cellGap;
+  const gridPositionY = mouse.y - (mouse.y % cellSize) + cellGap;
+  if (gridPositionY < cellSize) return; // Prevent defender being placed on controlsBar
+  for (let i = 0; i < defenders.length; i++) {
+    if (defenders[i].x === gridPositionX && defenders[i].y === gridPositionY)
+      // Prevent placing defenders on the same cell
+      return;
+  }
+  let defenderCost = 100; // Resource cost of each defender
+  if (numberOfResources >= defenderCost) {
+    defenders.push(new Defender(gridPositionX, gridPositionY)); // If resources > cost, place defender at mouse location
+    numberOfResources -= defenderCost; // Pay resources
+  } else {
+    floatingMessages.push(
+      new floatingMessage("need more resources", mouse.x, mouse.y, 20, "blue")
+    );
+  }
+});
 // Animation loop (basically a digital flipbook)
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -338,6 +375,7 @@ function animate() {
   handleProjectiles();
   handleEnemies();
   handleGameStatus();
+  handleFloatingMessags();
   frame++;
   if (!gameOver) requestAnimationFrame(animate); //Callback function calls itself to loop through itself
 }
