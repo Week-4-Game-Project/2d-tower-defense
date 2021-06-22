@@ -11,12 +11,13 @@ let enemiesInterval = 600; // Enemy spawn interval
 let frame = 0;
 let gameOver = false;
 let score = 0;
-const winningScore = 1000;
+let winningScore = 10;
 let chosenDefender = 1;
 let sound = document.createElement("audio"); //adding sound
+let nextLevel = true;
 
 const gameGrid = []; // Array of game cells
-const defenders = []; // Array of defenders on game board
+let defenders = []; // Array of defenders on game board
 const enemies = [];
 const enemyPositions = [];
 const projectiles = [];
@@ -218,7 +219,7 @@ class Defender {
   }
   update() {
     // Shooting speed
-    if (frame % 14 === 0) {
+    if (frame % 5 === 0) {
       if (this.frameX < this.maxFrame) this.frameX++;
       else this.frameX = this.minFrame;
       if (this.frameX === 10) this.shootNow = true;
@@ -313,7 +314,7 @@ function chooseDefender() {
   }
 
   ctx.lineWidth = 1;
-  ctx.fillStyle = "rgba(0, 0, 0,0.6)";
+  ctx.fillStyle = "rgba(0, 0, 0,0.8)";
   ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
   ctx.strokeStyle = card1stroke;
   ctx.strokeRect(card1.x, card1.y, card1.width, card1.height);
@@ -466,6 +467,8 @@ function handleEnemies() {
 }
 
 // RESOURCES
+const resourcesImg = new Image();
+resourcesImg.src = "../images/resources.png";
 const amounts = [20, 30, 40];
 class Resource {
   constructor() {
@@ -474,14 +477,31 @@ class Resource {
     this.width = cellSize * 0.6;
     this.height = cellSize * 0.6;
     this.amount = amounts[Math.floor(Math.random() * amounts.length)];
+    this.frameX = 0;
+    this.frameY = 0;
+    this.minFrame = 0;
+    this.maxFrame = 3;
+    this.spriteWidth = 136;
+    this.spriteHeight = 34;
   }
 
   draw() {
-    ctx.fillStyle = "yellow";
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = "black";
-    ctx.font = "20px Orbitron";
-    ctx.fillText(this.amount, this.x + 15, this.y + 25);
+    // ctx.fillStyle = "yellow";
+    // ctx.fillRect(this.x, this.y, this.width, this.height);
+    // ctx.fillStyle = "black";
+    // ctx.font = "20px Orbitron";
+    // ctx.fillText(this.amount, this.x + 15, this.y + 25);
+    ctx.drawImage(
+      resourcesImg,
+      this.frameX * this.spriteWidth,
+      0,
+      this.spriteWidth,
+      this.spriteHeight,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
   }
 }
 function handleResources() {
@@ -517,13 +537,26 @@ function handleGameStatus() {
   ctx.font = "30px Orbitron";
   ctx.fillText("Score: " + score, 180, 40);
   ctx.fillText("Resources: " + numberOfResources, 180, 80);
+
+  if (
+    score >= levels[level].winningScore &&
+    enemies.length === 0 &&
+    nextLevel
+  ) {
+    nextLevel = false;
+    level++;
+    setTimeout(function () {
+      winningScore = levels[level].winningScore;
+      nextLevel = true;
+      //defenders = [];
+    }, 3000);
+  }
   if (gameOver) {
-    // ctx.fillStyle = "black";
-    // ctx.font = "90px Orbitron";
-    // ctx.fillText("GAME OVER", 135, 330);
+    ctx.fillStyle = "black";
+    ctx.font = "90px Orbitron";
+    ctx.fillText("GAME OVER", 135, 200);
     sound.src = "./sounds/funnySong.mp3";
     sound.play();
-    console.log(gameOver);
     const button = document.getElementById("play-again"); // ADDED
     button.style.visibility = "visible";
     button.addEventListener("click", () => {
@@ -532,13 +565,6 @@ function handleGameStatus() {
       window.location.reload();
       ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     });
-  }
-  if (score >= winningScore && enemies.length === 0) {
-    ctx.fillStyle = "black";
-    ctx.font = "60px Orbitron";
-    ctx.fillText("LEVEL COMPLETE", 130, 300);
-    ctx.font = "30px Orbitron";
-    ctx.fillText("You win with " + score + " points!", 134, 340);
   }
 }
 
@@ -562,10 +588,14 @@ canvas.addEventListener("click", function () {
     );
   }
 });
+
 // Animation loop (basically a digital flipbook)
 function animate() {
+  //requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "rgba(0, 0, 0, 0.1";
+
+  ctx.drawImage(levels[level].background, 0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
   ctx.fillRect(0, 0, controlsBar.width, controlsBar.height);
   handleGameGrid();
   handleDefenders();
