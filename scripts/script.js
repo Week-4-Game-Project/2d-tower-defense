@@ -139,8 +139,10 @@ function handleProjectiles() {
 
 const defender1 = new Image();
 defender1.src = "../images/defender1.png";
-// const defender2 = new Image();
-// defender2.src = "../images/defender2.png";
+const defender2 = new Image();
+defender2.src = "../images/defender2.png";
+const defender3 = new Image();
+defender3.src = "../images/defender3.png"
 
 // DEFENDERS
 class Defender {
@@ -183,7 +185,7 @@ class Defender {
     } else if (this.chosenDefender === 2) {
       // CHANGE TO DEFENDER 2 ONCE SPRITE OBTAINED
       ctx.drawImage(
-        defender1,
+        defender2,
         this.frameX * this.spriteWidth,
         0,
         this.spriteWidth,
@@ -197,7 +199,7 @@ class Defender {
   }
   update() {
     // Shooting speed
-    if (frame % 5 === 0) {
+    if (frame % 14 === 0) {
       if (this.frameX < this.maxFrame) this.frameX++;
       else this.frameX = this.minFrame;
       if (this.frameX === 10) this.shootNow = true;
@@ -265,9 +267,17 @@ const card2 = {
   height: 85,
 };
 
+const card3 = {
+  x: 90,
+  y: 10,
+  width: 70,
+  height: 85,
+};
+
 function chooseDefender() {
   let card1stroke = "black";
   let card2stroke = "black";
+  let card3stroke = "black";
   if (collision(mouse, card1) && mouse.clicked) {
     chosenDefender = 1;
   } else if (collision(mouse, card2) && mouse.clicked) {
@@ -289,9 +299,9 @@ function chooseDefender() {
   ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
   ctx.strokeStyle = card1stroke;
   ctx.strokeRect(card1.x, card1.y, card1.width, card1.height);
-  ctx.drawImage(defender1, 0, 0, 130, 130, 0, 5, 130 / 2, 130 / 2);
+  ctx.drawImage(defender1, 0, 0, 130, 130, 15, 15, 130 / 2, 130 / 2);
   ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
-  ctx.drawImage(defender1, 0, 0, 130, 130, 0, 5, 130 / 2, 130 / 2); // CHANGE TO DEFENDER 2 WHEN IMAGE IS OBTAINED
+  ctx.drawImage(defender2, 0, 0, 130, 130, 95, 15, 130 / 2, 130 / 2); // CHANGE TO DEFENDER 2 WHEN IMAGE IS OBTAINED
   ctx.strokeStyle = card2stroke;
   ctx.strokeRect(card2.x, card2.y, card2.width, card2.height);
 }
