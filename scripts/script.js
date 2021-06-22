@@ -13,7 +13,7 @@ let gameOver = false;
 let score = 0;
 const winningScore = 200;
 let chosenDefender = 1;
-let sound = document.createElement("audio");  //adding sound
+let sound = document.createElement("audio"); //adding sound
 
 const gameGrid = []; // Array of game cells
 const defenders = []; // Array of defenders on game board
@@ -86,6 +86,8 @@ function handleGameGrid() {
     gameGrid[i].draw();
   }
 }
+const projectile = new Image();
+projectile.src = "../images/projectile.png";
 
 // PROJECTILES
 class Projectile {
@@ -96,15 +98,32 @@ class Projectile {
     this.height = 10;
     this.power = 20;
     this.speed = 5;
+    this.frameX = 0;
+    this.frameY = 0;
+    this.spriteWidth = 136;
+    this.spriteHeight = 34;
+    this.minFrame = 0;
+    this.maxFrame = 3;
   }
   update() {
     this.x += this.speed;
   }
   draw() {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "purple";
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2);
     ctx.fill();
+    ctx.drawImage(
+      projectile,
+      this.frameX * this.spriteWidth,
+      0,
+      this.spriteWidth,
+      this.spriteHeight,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
   }
 }
 function handleProjectiles() {
@@ -197,7 +216,7 @@ class Defender {
   }
   update() {
     // Shooting speed
-    if (frame % 5 === 0) {
+    if (frame % 8 === 0) {
       if (this.frameX < this.maxFrame) this.frameX++;
       else this.frameX = this.minFrame;
       if (this.frameX === 10) this.shootNow = true;
@@ -206,7 +225,6 @@ class Defender {
     if (this.shooting) {
       this.minFrame = 0;
       this.maxFrame = 11;
-      
     }
     // Synchronize idle frames
     else {
@@ -447,6 +465,7 @@ class Resource {
     this.height = cellSize * 0.6;
     this.amount = amounts[Math.floor(Math.random() * amounts.length)];
   }
+
   draw() {
     ctx.fillStyle = "yellow";
     ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -562,7 +581,7 @@ window.onload = () => {
     console.log("Start button clicked!");
     document.getElementById("intro").style.visibility = "hidden";
     button.style.visibility = "hidden";
-    sound.src = "./sounds/test.wav"
+    sound.src = "./sounds/test.wav";
     sound.play();
     console.log(sound);
     startGame();
