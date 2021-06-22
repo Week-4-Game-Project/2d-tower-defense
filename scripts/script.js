@@ -28,15 +28,14 @@ const mouse = {
   y: 10,
   width: 0.1,
   height: 0.1,
-  clicked: false
+  clicked: false,
 };
 
-canvas.addEventListener('mousedown', function(){
-mouse.clicked = true;
+canvas.addEventListener("mousedown", function () {
+  mouse.clicked = true;
 });
-canvas.addEventListener('mouseup', function(){
+canvas.addEventListener("mouseup", function () {
   mouse.clicked = false;
-  
 });
 
 let canvasPosition = canvas.getBoundingClientRect(); // Gets info about position of canvas from top, right, bottom, and left, as well as canvas dimensions and it's starting x and y coordinates. Needed to adjust canvas coordinates as browser window is resized.
@@ -122,6 +121,11 @@ function handleProjectiles() {
       ) {
         enemies[j].health -= projectiles[i].power; //Health removed enemy
         projectiles.splice(i, 1);
+        enemies[j].shadowColor = "red";
+        setTimeout(function () {
+          enemies[j].shadowColor = "green";
+        }, 1000);
+
         i--;
       }
     }
@@ -164,7 +168,7 @@ class Defender {
     // ctx.fillStyle = "gold";
     // ctx.font = "30px Orbitron";
     // ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
-    if (this.chosenDefender === 1){
+    if (this.chosenDefender === 1) {
       ctx.drawImage(
         defender1,
         this.frameX * this.spriteWidth,
@@ -176,7 +180,7 @@ class Defender {
         this.width,
         this.height
       );
-    } else if (this.chosenDefender === 2){
+    } else if (this.chosenDefender === 2) {
       // CHANGE TO DEFENDER 2 ONCE SPRITE OBTAINED
       ctx.drawImage(
         defender1,
@@ -189,7 +193,6 @@ class Defender {
         this.width,
         this.height
       );
-
     }
   }
   update() {
@@ -359,6 +362,7 @@ class Enemy {
     this.maxFrame = 11;
     this.spriteWidth = 130;
     this.spriteHeight = 130;
+    this.shadowColor = "green";
   }
   // Moves enemy slowly to the left
   update() {
@@ -375,6 +379,9 @@ class Enemy {
     //ctx.fillStyle = "black"; // Draws enemy health points
     // ctx.font = "30px Orbitron";
     // ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
+    ctx.shadowColor = this.shadowColor;
+    ctx.shadowBlur = 15;
+
     ctx.drawImage(
       this.enemyType,
       this.frameX * this.spriteWidth,
@@ -386,6 +393,8 @@ class Enemy {
       this.width,
       this.height
     );
+    ctx.shadowColor = "";
+    ctx.shadowBlur = 0;
   }
 }
 // Draws enemies array one time
@@ -483,16 +492,15 @@ function handleGameStatus() {
     // ctx.fillStyle = "black";
     // ctx.font = "90px Orbitron";
     // ctx.fillText("GAME OVER", 135, 330);
-
-    const button = document.getElementById("play-again"); // ADDED 
+    console.log(gameOver);
+    const button = document.getElementById("play-again"); // ADDED
     button.style.visibility = "visible";
-    button.addEventListener("click",()=>{
-    button.style.visibility = "hidden";
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    })
-
-
-    
+    button.addEventListener("click", () => {
+      console.log("button", button);
+      button.style.visibility = "hidden";
+      window.location.reload();
+      ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    });
   }
   if (score >= winningScore && enemies.length === 0) {
     ctx.fillStyle = "black";
@@ -537,7 +545,7 @@ function animate() {
   handleGameStatus();
   handleFloatingMessags();
   frame++;
-  if (!gameOver)requestAnimationFrame(animate)//Callback function calls itself to loop through itself
+  if (!gameOver) requestAnimationFrame(animate); //Callback function calls itself to loop through itself
 }
 
 // Call animate function manually
@@ -559,15 +567,13 @@ window.onload = () => {
     console.log(sound);
     startGame();
   };
- let button = document.getElementById("play-again")
-    button.onclick = () => {
+  let button = document.getElementById("play-again");
+  button.onclick = () => {
     console.log("play-again");
     //document.getElementById("intro").style.visibility = "visible"
     startGame();
-    console.log(gameOver)
-    
-  }
-  
+    console.log(gameOver);
+  };
 };
 
 // Collision detection function
