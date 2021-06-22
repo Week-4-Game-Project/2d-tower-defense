@@ -12,6 +12,7 @@ let frame = 0;
 let gameOver = false;
 let score = 0;
 const winningScore = 200;
+let chosenDefender = 1;
 
 const gameGrid = []; // Array of game cells
 const defenders = []; // Array of defenders on game board
@@ -26,7 +27,17 @@ const mouse = {
   y: 10,
   width: 0.1,
   height: 0.1,
+  clicked: false
 };
+
+canvas.addEventListener('mousedown', function(){
+mouse.clicked = true;
+});
+canvas.addEventListener('mouseup', function(){
+  mouse.clicked = false;
+  
+});
+
 let canvasPosition = canvas.getBoundingClientRect(); // Gets info about position of canvas from top, right, bottom, and left, as well as canvas dimensions and it's starting x and y coordinates. Needed to adjust canvas coordinates as browser window is resized.
 canvas.addEventListener("mousemove", function (event) {
   mouse.x = event.x - canvasPosition.left;
@@ -123,6 +134,8 @@ function handleProjectiles() {
 
 const defender1 = new Image();
 defender1.src = "../images/defender1.png";
+// const defender2 = new Image();
+// defender2.src = "../images/defender2.png";
 
 // DEFENDERS
 class Defender {
@@ -142,6 +155,7 @@ class Defender {
     this.spriteHeight = 130;
     this.minFrame = 0;
     this.maxFrame = 23;
+    this.chosenDefender = chosenDefender;
   }
   draw() {
     // ctx.fillStyle = "blue";
@@ -149,32 +163,52 @@ class Defender {
     // ctx.fillStyle = "gold";
     // ctx.font = "30px Orbitron";
     // ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
-    ctx.drawImage(
-      defender1,
-      this.frameX * this.spriteWidth,
-      0,
-      this.spriteWidth,
-      this.spriteHeight,
-      this.x,
-      this.y,
-      this.width,
-      this.height
-    );
+    if (this.chosenDefender === 1){
+      ctx.drawImage(
+        defender1,
+        this.frameX * this.spriteWidth,
+        0,
+        this.spriteWidth,
+        this.spriteHeight,
+        this.x,
+        this.y,
+        this.width,
+        this.height
+      );
+    } else if (this.chosenDefender ===2){
+      // CHANGE TO DEFENDER 2 ONCE SPRITE OBTAINED
+      ctx.drawImage(
+        defender1,
+        this.frameX * this.spriteWidth,
+        0,
+        this.spriteWidth,
+        this.spriteHeight,
+        this.x,
+        this.y,
+        this.width,
+        this.height
+      );
+
+    }
   }
   update() {
+    // Shooting speed
     if (frame % 5 === 0) {
       if (this.frameX < this.maxFrame) this.frameX++;
       else this.frameX = this.minFrame;
       if (this.frameX === 10) this.shootNow = true;
     }
+    // Synchronize shooting animation frames
     if (this.shooting) {
       this.minFrame = 0;
       this.maxFrame = 11;
-    } else {
+    }
+    // Synchronize idle frames
+    else {
       this.minFrame = 12;
       this.maxFrame = 23;
     }
-
+    // Make sure animation and projectile shoot at same time
     if (this.shooting && this.shootNow) {
       projectiles.push(new Projectile(this.x + 70, this.y + 45));
       this.shootNow = false;
@@ -208,6 +242,51 @@ function handleDefenders() {
       }
     }
   }
+}
+
+// Defender choice cards on gameBar
+const card1 = {
+  x: 10,
+  y: 10,
+  width: 70,
+  height: 85,
+};
+const card2 = {
+  x: 90,
+  y: 10,
+  width: 70,
+  height: 85,
+};
+
+function chooseDefender() {
+  let card1stroke = "black";
+  let card2stroke = "black";
+  if (collision(mouse, card1) && mouse.clicked) {
+    chosenDefender = 1;
+  } else if (collision(mouse, card2) && mouse.clicked) {
+    chosenDefender = 2;
+  }
+  if (chosenDefender === 1) {
+    card1stroke = "gold";
+    card2stroke = "black";
+  } else if (chosenDefender === 2) {
+    card1stroke = "black";
+    card2stroke = "gold";
+  } else {
+    card1stroke = "black";
+    card2stroke = "black";
+  }
+
+  ctx.lineWidth = 1;
+  ctx.fillStyle = "rgba(0, 0, 0,0.1)";
+  ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
+  ctx.strokeStyle = card1stroke;
+  ctx.strokeRect(card1.x, card1.y, card1.width, card1.height);
+  ctx.drawImage(defender1, 0, 0, 130, 130, 0, 5, 130 / 2, 130 / 2);
+  ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
+  ctx.drawImage(defender1, 0, 0, 130, 130, 0, 5, 130 / 2, 130 / 2); // CHANGE TO DEFENDER 2 WHEN IMAGE IS OBTAINED
+  ctx.strokeStyle = card2stroke;
+  ctx.strokeRect(card2.x, card2.y, card2.width, card2.height);
 }
 
 // FLOATING MESSAGES
@@ -393,8 +472,8 @@ function handleResources() {
 function handleGameStatus() {
   fillStyle = "gold";
   ctx.font = "30px Orbitron";
-  ctx.fillText("Score: " + score, 20, 40);
-  ctx.fillText("Resources: " + numberOfResources, 20, 80);
+  ctx.fillText("Score: " + score, 180, 40);
+  ctx.fillText("Resources: " + numberOfResources, 180, 80);
   if (gameOver) {
     ctx.fillStyle = "black";
     ctx.font = "90px Orbitron";
@@ -438,6 +517,7 @@ function animate() {
   handleResources();
   handleProjectiles();
   handleEnemies();
+  chooseDefender();
   handleGameStatus();
   handleFloatingMessags();
   frame++;
