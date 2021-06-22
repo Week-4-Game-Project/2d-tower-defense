@@ -59,11 +59,20 @@ body {
 }
 
 #play-again{
-
-  background-position: center;
-  background-size: cover;
+  background-image: url(../images/play-again2.png);
+  background-size:cover;
   position: absolute;
   visibility: hidden;
-  width:190px;
+  background-color: transparent;
+  border: none;
+  cursor:pointer;
+  width:285px;
   height:90px
 }
+
+/* #play-again:active {
+  transform: translateY(4px);
+  background:transparent;
+  border:none;
+  outline: none;
+} */

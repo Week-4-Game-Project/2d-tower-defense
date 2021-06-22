@@ -13,6 +13,7 @@ let gameOver = false;
 let score = 0;
 const winningScore = 200;
 let chosenDefender = 1;
+let sound = document.createElement("audio");  //adding sound
 
 const gameGrid = []; // Array of game cells
 const defenders = []; // Array of defenders on game board
@@ -175,7 +176,7 @@ class Defender {
         this.width,
         this.height
       );
-    } else if (this.chosenDefender ===2){
+    } else if (this.chosenDefender === 2){
       // CHANGE TO DEFENDER 2 ONCE SPRITE OBTAINED
       ctx.drawImage(
         defender1,
@@ -202,6 +203,7 @@ class Defender {
     if (this.shooting) {
       this.minFrame = 0;
       this.maxFrame = 11;
+      
     }
     // Synchronize idle frames
     else {
@@ -212,6 +214,8 @@ class Defender {
     if (this.shooting && this.shootNow) {
       projectiles.push(new Projectile(this.x + 70, this.y + 45));
       this.shootNow = false;
+      sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
+      sound.play();
     }
   }
 }
@@ -364,6 +368,7 @@ class Enemy {
       else this.frameX = this.minFrame;
     }
   }
+
   draw() {
     // ctx.fillStyle = "red"; // Draw enemy box
     // ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -478,6 +483,7 @@ function handleGameStatus() {
     // ctx.fillStyle = "black";
     // ctx.font = "90px Orbitron";
     // ctx.fillText("GAME OVER", 135, 330);
+
     const button = document.getElementById("play-again"); // ADDED 
     button.style.visibility = "visible";
     button.addEventListener("click",()=>{
@@ -548,6 +554,9 @@ window.onload = () => {
     console.log("Start button clicked!");
     document.getElementById("intro").style.visibility = "hidden";
     button.style.visibility = "hidden";
+    sound.src = "./sounds/test.wav"
+    sound.play();
+    console.log(sound);
     startGame();
   };
  let button = document.getElementById("play-again")
