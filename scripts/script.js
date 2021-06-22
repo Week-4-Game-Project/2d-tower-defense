@@ -11,7 +11,7 @@ let enemiesInterval = 600; // Enemy spawn interval
 let frame = 0;
 let gameOver = false;
 let score = 0;
-const winningScore = 200;
+const winningScore = 1000;
 let chosenDefender = 1;
 let sound = document.createElement("audio");  //adding sound
 
@@ -197,7 +197,7 @@ class Defender {
   }
   update() {
     // Shooting speed
-    if (frame % 5 === 0) {
+    if (frame % 9 === 0) {
       if (this.frameX < this.maxFrame) this.frameX++;
       else this.frameX = this.minFrame;
       if (this.frameX === 10) this.shootNow = true;
@@ -492,6 +492,8 @@ function handleGameStatus() {
     // ctx.fillStyle = "black";
     // ctx.font = "90px Orbitron";
     // ctx.fillText("GAME OVER", 135, 330);
+    sound.src = "./sounds/funnySong.mp3";
+    sound.play();
     console.log(gameOver);
     const button = document.getElementById("play-again"); // ADDED
     button.style.visibility = "visible";
