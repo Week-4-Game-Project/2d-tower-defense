@@ -121,6 +121,9 @@ function handleProjectiles() {
   }
 }
 
+const defender1 = new Image();
+defender1.src = "../images/defender1.png";
+
 // DEFENDERS
 class Defender {
   constructor(x, y) {
@@ -129,25 +132,52 @@ class Defender {
     this.width = cellSize - cellGap * 2;
     this.height = cellSize - cellGap * 2;
     this.shooting = false; // Is there an enemy in my row?
+    this.shootNow = false;
     this.health = 100;
     this.projectiles = []; // Projectiles I am currently shooting
     this.timer = 0; // Periodically trigger defender actions
+    this.frameX = 0;
+    this.frameY = 0;
+    this.spriteWidth = 130;
+    this.spriteHeight = 130;
+    this.minFrame = 0;
+    this.maxFrame = 23;
   }
   draw() {
-    ctx.fillStyle = "blue";
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = "gold";
-    ctx.font = "30px Orbitron";
-    ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
+    // ctx.fillStyle = "blue";
+    // ctx.fillRect(this.x, this.y, this.width, this.height);
+    // ctx.fillStyle = "gold";
+    // ctx.font = "30px Orbitron";
+    // ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
+    ctx.drawImage(
+      defender1,
+      this.frameX * this.spriteWidth,
+      0,
+      this.spriteWidth,
+      this.spriteHeight,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
   }
   update() {
+    if (frame % 5 === 0) {
+      if (this.frameX < this.maxFrame) this.frameX++;
+      else this.frameX = this.minFrame;
+      if (this.frameX === 10) this.shootNow = true;
+    }
     if (this.shooting) {
-      this.timer++;
-      if (this.timer % 100 === 0) {
-        projectiles.push(new Projectile(this.x + 70, this.y + 50));
-      }
+      this.minFrame = 0;
+      this.maxFrame = 11;
     } else {
-      this.timer = 0;
+      this.minFrame = 12;
+      this.maxFrame = 23;
+    }
+
+    if (this.shooting && this.shootNow) {
+      projectiles.push(new Projectile(this.x + 70, this.y + 45));
+      this.shootNow = false;
     }
   }
 }
