@@ -15,6 +15,7 @@ let winningScore = 10;
 let chosenDefender = 1;
 let sound = document.createElement("audio"); //adding sound
 let nextLevel = true;
+let lastLevel = false;
 
 const gameGrid = []; // Array of game cells
 let defenders = []; // Array of defenders on game board
@@ -97,7 +98,7 @@ class Projectile {
     this.y = y;
     this.width = 10;
     this.height = 10;
-    this.power = 20;
+    this.power = 200;
     this.speed = 5;
     this.frameX = 0;
     this.frameY = 0;
@@ -520,7 +521,7 @@ class Resource {
   }
 }
 function handleResources() {
-  if (frame % 500 === 0 && score < winningScore) {
+  if (frame % 100 === 0 && score < winningScore) {
     resources.push(new Resource());
   }
   for (let i = 0; i < resources.length; i++) {
@@ -556,6 +557,24 @@ function handleGameStatus() {
   if (
     score >= levels[level].winningScore &&
     enemies.length === 0 &&
+    level == 2
+  ) {
+    ctx.fillStyle = "black";
+    ctx.font = "60px Orbitron";
+    ctx.fillText("GAME COMPLETE", 130, 320);
+    ctx.font = "30px Orbitron";
+    ctx.fillText("You win with " + score + " points!", 134, 370);
+    const button = document.getElementById("play-again"); // ADDED
+    button.style.visibility = "visible";
+    button.addEventListener("click", () => {
+      console.log("button", button);
+      button.style.visibility = "hidden";
+      window.location.reload();
+      ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    });
+  } else if (
+    score >= levels[level].winningScore &&
+    enemies.length === 0 &&
     nextLevel
   ) {
     nextLevel = false;
@@ -569,7 +588,7 @@ function handleGameStatus() {
   if (gameOver) {
     ctx.fillStyle = "black";
     ctx.font = "90px Orbitron";
-    ctx.fillText("GAME OVER", 135, 200);
+    ctx.fillText("GAME OVER", 135, 320);
     sound.src = "./sounds/funnySong.mp3";
     sound.play();
     const button = document.getElementById("play-again"); // ADDED
@@ -599,7 +618,7 @@ canvas.addEventListener("click", function () {
       defenders.push(new Defender(gridPositionX, gridPositionY)); // If resources > cost, place defender at mouse location
       numberOfResources -= defenderCost; // Pay resources
     } else if (chosenDefender === 3) {
-      console.log('summon shield')
+      console.log("summon shield");
       defenders.push(new Shield(gridPositionX, gridPositionY)); // If resources > cost, place defender at mouse location
       numberOfResources -= defenderCost; // Pay resources
     }
@@ -614,7 +633,6 @@ canvas.addEventListener("click", function () {
 function animate() {
   //requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
   ctx.drawImage(levels[level].background, 0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
   ctx.fillRect(0, 0, controlsBar.width, controlsBar.height);
@@ -701,7 +719,7 @@ class Shield extends Defender {
   }
   update() {
     // Shooting speed
-    if (frame % 14 === 0) {
+    if (frame % 2 === 0) {
       if (this.frameX < this.maxFrame) this.frameX++;
       else this.frameX = this.minFrame;
       if (this.frameX === 10) this.shootNow = true;
