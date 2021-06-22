@@ -13,7 +13,7 @@ let gameOver = false;
 let score = 0;
 const winningScore = 200;
 let chosenDefender = 1;
-let sound = document.createElement("audio");  //adding sound
+let sound = document.createElement("audio"); //adding sound
 
 const gameGrid = []; // Array of game cells
 const defenders = []; // Array of defenders on game board
@@ -142,7 +142,7 @@ defender1.src = "../images/defender1.png";
 const defender2 = new Image();
 defender2.src = "../images/defender2.png";
 const defender3 = new Image();
-defender3.src = "../images/defender3.png"
+defender3.src = "../images/defender3.png";
 
 // DEFENDERS
 class Defender {
@@ -208,7 +208,6 @@ class Defender {
     if (this.shooting) {
       this.minFrame = 0;
       this.maxFrame = 11;
-      
     }
     // Synchronize idle frames
     else {
@@ -268,7 +267,7 @@ const card2 = {
 };
 
 const card3 = {
-  x: 90,
+  x: 170,
   y: 10,
   width: 70,
   height: 85,
@@ -282,28 +281,44 @@ function chooseDefender() {
     chosenDefender = 1;
   } else if (collision(mouse, card2) && mouse.clicked) {
     chosenDefender = 2;
+  } else if (collision(mouse, card3) && mouse.clicked) {
+    chosenDefender = 3;
   }
   if (chosenDefender === 1) {
     card1stroke = "gold";
     card2stroke = "black";
+    card3stroke = "black";
   } else if (chosenDefender === 2) {
     card1stroke = "black";
     card2stroke = "gold";
+    card3stroke = "black";
+  } else if (chosenDefender === 3) {
+    card1stroke = "black";
+    card2stroke = "black";
+    card3stroke = "gold";
   } else {
     card1stroke = "black";
     card2stroke = "black";
+    card3stroke = "black";
   }
 
   ctx.lineWidth = 1;
   ctx.fillStyle = "rgba(0, 0, 0,0.1)";
+  // Defender 1 card draw
   ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
   ctx.strokeStyle = card1stroke;
   ctx.strokeRect(card1.x, card1.y, card1.width, card1.height);
   ctx.drawImage(defender1, 0, 0, 130, 130, 15, 15, 130 / 2, 130 / 2);
+  // Defender 2 card draw
   ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
-  ctx.drawImage(defender2, 0, 0, 130, 130, 95, 15, 130 / 2, 130 / 2); // CHANGE TO DEFENDER 2 WHEN IMAGE IS OBTAINED
   ctx.strokeStyle = card2stroke;
   ctx.strokeRect(card2.x, card2.y, card2.width, card2.height);
+  ctx.drawImage(defender2, 0, 0, 130, 130, 95, 15, 130 / 2, 130 / 2);
+  // Defender 3 card draw
+  ctx.fillRect(card3.x, card3.y, card3.width, card3.height);
+  ctx.strokeStyle = card3stroke;
+  ctx.strokeRect(card3.x, card3.y, card3.width, card3.height);
+  ctx.drawImage(defender3, 0, 0, 130, 130, 175, 15, 130 / 2, 130 / 2);
 }
 
 // FLOATING MESSAGES
@@ -496,8 +511,8 @@ function handleResources() {
 function handleGameStatus() {
   fillStyle = "gold";
   ctx.font = "30px Orbitron";
-  ctx.fillText("Score: " + score, 180, 40);
-  ctx.fillText("Resources: " + numberOfResources, 180, 80);
+  ctx.fillText("Score: " + score, 260, 40);
+  ctx.fillText("Resources: " + numberOfResources, 260, 80);
   if (gameOver) {
     // ctx.fillStyle = "black";
     // ctx.font = "90px Orbitron";
@@ -533,8 +548,14 @@ canvas.addEventListener("click", function () {
   }
   let defenderCost = 100; // Resource cost of each defender
   if (numberOfResources >= defenderCost) {
-    defenders.push(new Defender(gridPositionX, gridPositionY)); // If resources > cost, place defender at mouse location
-    numberOfResources -= defenderCost; // Pay resources
+    if (chosenDefender === 1 || chosenDefender === 2) {
+      defenders.push(new Defender(gridPositionX, gridPositionY)); // If resources > cost, place defender at mouse location
+      numberOfResources -= defenderCost; // Pay resources
+    } else if (chosenDefender === 3) {
+      console.log('summon shield')
+      defenders.push(new Shield(gridPositionX, gridPositionY)); // If resources > cost, place defender at mouse location
+      numberOfResources -= defenderCost; // Pay resources
+    }
   } else {
     floatingMessages.push(
       new floatingMessage("need more resources", mouse.x, mouse.y, 20, "blue")
@@ -572,7 +593,7 @@ window.onload = () => {
     console.log("Start button clicked!");
     document.getElementById("intro").style.visibility = "hidden";
     button.style.visibility = "hidden";
-    sound.src = "./sounds/test.wav"
+    sound.src = "./sounds/test.wav";
     sound.play();
     console.log(sound);
     startGame();
@@ -604,3 +625,52 @@ function collision(first, second) {
 window.addEventListener("resize", function () {
   canvasPosition = canvas.getBoundingClientRect();
 });
+
+class Shield extends Defender {
+  constructor(x, y) {
+    super(x, y);
+  }
+  draw() {
+    // ctx.fillStyle = "blue";
+    // ctx.fillRect(this.x, this.y, this.width, this.height);
+    // ctx.fillStyle = "gold";
+    // ctx.font = "30px Orbitron";
+    // ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
+    ctx.drawImage(
+      defender3,
+      this.frameX * this.spriteWidth,
+      0,
+      this.spriteWidth,
+      this.spriteHeight,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
+  }
+  update() {
+    // Shooting speed
+    if (frame % 14 === 0) {
+      if (this.frameX < this.maxFrame) this.frameX++;
+      else this.frameX = this.minFrame;
+      if (this.frameX === 10) this.shootNow = true;
+    }
+    // Synchronize shooting animation frames
+    if (this.shooting) {
+      this.minFrame = 0;
+      this.maxFrame = 11;
+    }
+    // Synchronize idle frames
+    else {
+      this.minFrame = 12;
+      this.maxFrame = 23;
+    }
+    // Make sure animation and projectile shoot at same time
+    if (this.shooting && this.shootNow) {
+      projectiles.push(new Projectile(this.x + 70, this.y + 45));
+      this.shootNow = false;
+      sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
+      sound.play();
+    }
+  }
+}
