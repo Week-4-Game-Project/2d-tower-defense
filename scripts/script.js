@@ -11,7 +11,7 @@ let enemiesInterval = 600; // Enemy spawn interval
 let frame = 0;
 let gameOver = false;
 let score = 0;
-const winningScore = 200;
+const winningScore = 2000;
 
 const gameGrid = []; // Array of game cells
 const defenders = []; // Array of defenders on game board
@@ -366,9 +366,17 @@ function handleGameStatus() {
   ctx.fillText("Score: " + score, 20, 40);
   ctx.fillText("Resources: " + numberOfResources, 20, 80);
   if (gameOver) {
-    ctx.fillStyle = "black";
-    ctx.font = "90px Orbitron";
-    ctx.fillText("GAME OVER", 135, 330);
+    // ctx.fillStyle = "black";
+    // ctx.font = "90px Orbitron";
+    // ctx.fillText("GAME OVER", 135, 330);
+    const button = document.getElementById("play-again"); // ADDED 
+    button.style.visibility = "visible";
+    button.addEventListener("click",()=>{
+    button.style.visibility = "hidden";
+
+    })
+
+    
   }
   if (score >= winningScore && enemies.length === 0) {
     ctx.fillStyle = "black";
@@ -378,6 +386,7 @@ function handleGameStatus() {
     ctx.fillText("You win with " + score + " points!", 134, 340);
   }
 }
+
 // Defender summon on mouse click
 canvas.addEventListener("click", function () {
   const gridPositionX = mouse.x - (mouse.x % cellSize) + cellGap;
@@ -411,7 +420,7 @@ function animate() {
   handleGameStatus();
   handleFloatingMessags();
   frame++;
-  if (!gameOver) requestAnimationFrame(animate); //Callback function calls itself to loop through itself
+  if (!gameOver)requestAnimationFrame(animate)//Callback function calls itself to loop through itself
 }
 
 // Call animate function manually
@@ -426,8 +435,19 @@ function startGame() {
 window.onload = () => {
   document.getElementById("start-button").onclick = () => {
     console.log("Start button clicked!");
+    document.getElementById("intro").style.visibility = "hidden";
+    button.style.visibility = "hidden";
     startGame();
   };
+ let button = document.getElementById("play-again")
+    button.onclick = () => {
+    console.log("play-again");
+    //document.getElementById("intro").style.visibility = "visible"
+    startGame();
+    console.log(gameOver)
+    
+  }
+  
 };
 
 // Collision detection function
