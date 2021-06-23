@@ -42,8 +42,8 @@ document.getElementById("start-button").onclick = () => {
   console.log("Start button clicked!");
   document.getElementById("intro").style.visibility = "hidden";
   button.style.visibility = "hidden";
-  sound.src = "./sounds/test.wav";
-  sound.play();
+  // sound.src = "./sounds/test.wav";
+  // sound.play();
   console.log(sound);
   startGame();
 };
@@ -70,7 +70,6 @@ function collision(first, second) {
     return true;
   }
 }
-
 
 
 
