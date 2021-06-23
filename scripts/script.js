@@ -188,57 +188,64 @@ function handleGameStatus() {
   ctx.fillText("Score: " + score, 260, 40);
   ctx.fillText("Resources: " + numberOfResources, 260, 80);
 
-  // Game won
   if (
     score >= levels[level].winningScore &&
     enemies.length === 0 &&
     level == 2
   ) {
-    ctx.fillStyle = "black";
-    ctx.font = "60px Orbitron";
-    ctx.fillText("GAME COMPLETE", 130, 320);
-    ctx.font = "30px Orbitron";
-    ctx.fillText("You win with " + score + " points!", 134, 370);
-    // const button = document.getElementById("play-again"); // ADDED
-    button.style.visibility = "visible";
-    // button.addEventListener("click", () => {
-    //   console.log("button", button);
-    //   button.style.visibility = "hidden";
-    //   window.location.reload();
-    //   ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    // });
-    // Next level
-  } else if (
-    score >= levels[level].winningScore &&
-    enemies.length === 0 &&
-    nextLevel
-  ) {
-    nextLevel = false;
-    level++;
-    setTimeout(function () {
-      winningScore = levels[level].winningScore;
-      nextLevel = true;
-      //defenders = [];
-    }, 3000);
-  }
-  // Game over
-  if (gameOver) {
-    ctx.fillStyle = "black";
-    ctx.font = "90px Orbitron";
-    ctx.fillText("GAME OVER", 135, 320);
-    sound.src = "./sounds/funnySong.mp3";
-    sound.play();
-    // const button = document.getElementById("play-again"); // Play again button
-    button.style.visibility = "visible";
-    // button.addEventListener("click", () => {
-    //   console.log("button", button);
-    //   button.style.visibility = "hidden";
-    //   window.location.reload();
-    //   ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    // });
+    // Game won
+    if (
+      score >= levels[level].winningScore &&
+      enemies.length === 0 &&
+      level == 2
+    ) {
+      ctx.fillStyle = "black";
+      ctx.font = "60px Orbitron";
+      ctx.fillText("GAME COMPLETE", 130, 320);
+      ctx.font = "30px Orbitron";
+      ctx.fillText("You win with " + score + " points!", 134, 370);
+      // const button = document.getElementById("play-again"); // ADDED
+      button.style.visibility = "visible";
+      // button.addEventListener("click", () => {
+      //   console.log("button", button);
+      //   button.style.visibility = "hidden";
+      //   window.location.reload();
+      //   ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      // });
+      // Next level
+    } else if (
+      score >= levels[level].winningScore &&
+      enemies.length === 0 &&
+      nextLevel
+    ) {
+      nextLevel = false;
+      level++;
+      setTimeout(function () {
+        winningScore = levels[level].winningScore;
+        nextLevel = true;
+        //defenders = [];
+      }, 3000);
+    }
+    if (gameOver) {
+    }
+    // Game over
+    if (gameOver) {
+      ctx.fillStyle = "black";
+      ctx.font = "90px Orbitron";
+      ctx.fillText("GAME OVER", 135, 320);
+      sound.src = "./sounds/funnySong.mp3";
+      sound.play();
+      // const button = document.getElementById("play-again"); // Play again button
+      button.style.visibility = "visible";
+      // button.addEventListener("click", () => {
+      //   console.log("button", button);
+      //   button.style.visibility = "hidden";
+      //   window.location.reload();
+      //   ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      // });
+    }
   }
 }
-
 // Defender summon on mouse click
 canvas.addEventListener("click", function () {
   const gridPositionX = mouse.x - (mouse.x % cellSize) + cellGap;

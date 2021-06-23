@@ -37,6 +37,32 @@ class Resource {
   }
 }
 
+function handleResources() {
+    if (frame % resourceFrequency === 0 && score < winningScore) {
+      resources.push(new Resource());
+    }
+    for (let i = 0; i < resources.length; i++) {
+      resources[i].draw();
+      if (resources[i] && mouse.x && mouse.y && collision(resources[i], mouse)) {
+        numberOfResources += resources[i].amount;
+        floatingMessages.push(
+          new floatingMessage(
+            "+" + resources[i].amount,
+            resources[i].x,
+            resources[i].y,
+            30,
+            "black"
+          )
+        );
+        floatingMessages.push(
+          new floatingMessage("+" + resources[i].amount, 250, 50, 30, "gold")
+        );
+        resources.splice(i, 1);
+        i--;
+      }
+    }
+  }
+
 // Cell blueprint
 class Cell {
     constructor(x, y) {
