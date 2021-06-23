@@ -166,8 +166,9 @@ class Defender {
           enemies[j].health -= projectiles[i].power; //Health removed enemy
           projectiles.splice(i, 1);
           enemies[j].shadowColor = "red";
+          let enemy = enemies[j];
           setTimeout(function () {
-            enemies[j].shadowColor = "green";
+            enemy.shadowColor = "green";
           }, 1000);
   
           i--;
