@@ -559,6 +559,7 @@ function handleGameStatus() {
   ctx.fillText("Score: " + score, 260, 40);
   ctx.fillText("Resources: " + numberOfResources, 260, 80);
 
+  // Game won
   if (
     score >= levels[level].winningScore &&
     enemies.length === 0 &&
@@ -577,6 +578,7 @@ function handleGameStatus() {
       window.location.reload();
       ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     });
+    // Next level
   } else if (
     score >= levels[level].winningScore &&
     enemies.length === 0 &&
@@ -590,13 +592,14 @@ function handleGameStatus() {
       //defenders = [];
     }, 3000);
   }
+  // Game over
   if (gameOver) {
     ctx.fillStyle = "black";
     ctx.font = "90px Orbitron";
     ctx.fillText("GAME OVER", 135, 320);
     sound.src = "./sounds/funnySong.mp3";
     sound.play();
-    const button = document.getElementById("play-again"); // ADDED
+    const button = document.getElementById("play-again"); // Play again button
     button.style.visibility = "visible";
     button.addEventListener("click", () => {
       console.log("button", button);
