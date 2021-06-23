@@ -13,7 +13,7 @@ class Enemy {
     this.frameX = 0;
     this.frameY = 0;
     this.minFrame = 0;
-    this.maxFrame = 11;
+    this.maxFrame = 26;
     this.spriteWidth = 130;
     this.spriteHeight = 130;
     this.shadowColor = "green";

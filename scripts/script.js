@@ -106,13 +106,13 @@ const enemy1 = new Image();
 enemy1.src = "../images/enemy1.png";
 enemyTypes.push(enemy1);
 
-const enemy2 = new Image();
-enemy2.src = "../images/enemy2.png";
-enemyTypes.push(enemy2);
+// const enemy2 = new Image();
+// enemy2.src = "../images/enemy2.png";
+// enemyTypes.push(enemy2);
 
-const enemy3 = new Image();
-enemy3.src = "../images/enemy3.png";
-enemyTypes.push(enemy3);
+// const enemy3 = new Image();
+// enemy3.src = "../images/enemy3.png";
+// enemyTypes.push(enemy3);
 
 // Draws enemies array one time
 function handleEnemies() {
