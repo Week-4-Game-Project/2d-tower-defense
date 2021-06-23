@@ -110,6 +110,7 @@ function handleGameStatus() {
   ctx.fillText("Score: " + score, 260, 40);
   ctx.fillText("Resources: " + numberOfResources, 260, 80);
 
+  if (score >= levels[level].winningScore && enemies.length === 0 && level == 2){
   // Game won
   if (
     score >= levels[level].winningScore &&
@@ -131,17 +132,15 @@ function handleGameStatus() {
     // });
     // Next level
   } else if (
-    score >= levels[level].winningScore &&
-    enemies.length === 0 &&
-    nextLevel
-  ) {
-    nextLevel = false;
-    level++;
+    score >= levels[level].winningScore && enemies.length === 0 && nextLevel) {
+    nextLevel = false; 
+     level++;
     setTimeout(function () {
       winningScore = levels[level].winningScore;
       nextLevel = true;
       //defenders = [];
     }, 3000);
+  } if (gameOver) {
   }
   // Game over
   if (gameOver) {
@@ -160,7 +159,7 @@ function handleGameStatus() {
     // });
   }
 }
-
+}
 // Defender summon on mouse click
 canvas.addEventListener("click", function () {
   const gridPositionX = mouse.x - (mouse.x % cellSize) + cellGap;
