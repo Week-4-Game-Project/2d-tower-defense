@@ -608,7 +608,7 @@ function handleGameStatus() {
     });
   }
 }
-
+}
 // Defender summon on mouse click
 canvas.addEventListener("click", function () {
   const gridPositionX = mouse.x - (mouse.x % cellSize) + cellGap;
