@@ -239,7 +239,7 @@ class Defender {
     if (this.shooting && this.shootNow) {
       projectiles.push(new Projectile(this.x + 70, this.y + 45));
       this.shootNow = false;
-      sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
+      sound.src = "./sounds/lasergun1.wav"; //play sound when defender shooting
       sound.play();
     }
   }
@@ -554,11 +554,7 @@ function handleGameStatus() {
   ctx.fillText("Score: " + score, 260, 40);
   ctx.fillText("Resources: " + numberOfResources, 260, 80);
 
-  if (
-    score >= levels[level].winningScore &&
-    enemies.length === 0 &&
-    level == 2
-  ) {
+  if (score >= levels[level].winningScore && enemies.length === 0 && level == 2){
     ctx.fillStyle = "black";
     ctx.font = "60px Orbitron";
     ctx.fillText("GAME COMPLETE", 130, 320);
@@ -573,19 +569,15 @@ function handleGameStatus() {
       ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     });
   } else if (
-    score >= levels[level].winningScore &&
-    enemies.length === 0 &&
-    nextLevel
-  ) {
-    nextLevel = false;
-    level++;
+    score >= levels[level].winningScore && enemies.length === 0 && nextLevel) {
+    nextLevel = false; 
+     level++;
     setTimeout(function () {
       winningScore = levels[level].winningScore;
       nextLevel = true;
       //defenders = [];
     }, 3000);
-  }
-  if (gameOver) {
+  } if (gameOver) {
     ctx.fillStyle = "black";
     ctx.font = "90px Orbitron";
     ctx.fillText("GAME OVER", 135, 320);
@@ -667,6 +659,7 @@ window.onload = () => {
     console.log(sound);
     startGame();
   };
+
   let button = document.getElementById("play-again");
   button.onclick = () => {
     console.log("play-again");
