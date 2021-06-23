@@ -24,7 +24,10 @@ const enemyPositions = [];
 const projectiles = [];
 const resources = [];
 
-let defenderShotInterval = 2; // Frequency of defender attack. Lower # means faster
+// Debugging cheats
+let defenderShotInterval = 2; // Frequency of defender attack. Lower # means faster shooting
+let resourceFrequency = 400; // Frequency of resource spawn. Lower # means faster spawn
+// For more shooting power, edit this.power on Projectile class
 
 // mouse
 const mouse = {
@@ -100,7 +103,7 @@ class Projectile {
     this.y = y;
     this.width = 10;
     this.height = 10;
-    this.power = 20; // Projectile power. Normal 20, set to 400 to debug
+    this.power = 20; // Projectile power. Normal 20, set to 400 to debug faster
     this.speed = 5;
     this.frameX = 0;
     this.frameY = 0;
@@ -295,6 +298,7 @@ const card3 = {
   height: 85,
 };
 
+// DEFENDER CHOICE CARDS
 function chooseDefender() {
   let card1stroke = "black";
   let card2stroke = "black";
@@ -522,7 +526,7 @@ class Resource {
   }
 }
 function handleResources() {
-  if (frame % 100 === 0 && score < winningScore) {
+  if (frame % resourceFrequency === 0 && score < winningScore) {
     resources.push(new Resource());
   }
   for (let i = 0; i < resources.length; i++) {
