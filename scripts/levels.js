@@ -16,12 +16,12 @@ const levels = [
   {
     name: "level 2",
     background: backgroundImage2,
-    winningScore: 50,
+    winningScore: 20,
   },
   {
     name: "level 3",
     background: backgroundImage3,
-    winningScore: 100,
+    winningScore: 30,
   },
 ];
 

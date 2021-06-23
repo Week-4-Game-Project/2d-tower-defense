@@ -225,7 +225,7 @@ function handleGameStatus() {
     ctx.fillStyle = "black";
     ctx.font = "90px Orbitron";
     ctx.fillText("GAME OVER", 135, 320);
-    sound.src = "./sounds/funnySong.mp3";
+    sound.src = "./sounds/gameover.wav";
     sound.play();
     // const button = document.getElementById("play-again"); // Play again button
     button.style.visibility = "visible";
