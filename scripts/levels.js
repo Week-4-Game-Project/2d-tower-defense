@@ -25,4 +25,52 @@ const levels = [
   },
 ];
 
+
+
 let level = 0;
+
+const button = document.getElementById("play-again"); // ADDED
+// button.style.visibility = "visible";
+button.addEventListener("click", () => {
+  // console.log("button", button);
+  // button.style.visibility = "hidden";
+  window.location.reload();
+  // ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+});
+
+document.getElementById("start-button").onclick = () => {
+  console.log("Start button clicked!");
+  document.getElementById("intro").style.visibility = "hidden";
+  button.style.visibility = "hidden";
+  sound.src = "./sounds/test.wav";
+  sound.play();
+  console.log(sound);
+  startGame();
+};
+
+
+window.addEventListener("resize", function () {
+  canvasPosition = canvas.getBoundingClientRect();
+});
+
+
+
+
+// Collision detection function
+function collision(first, second) {
+  // If any of these comparisons return true, it means there is no collision. But we use the ! operator to say "if collision is false, execute following code. else, collision is true."
+  if (
+    !(
+      first.x > second.x + second.width ||
+      first.x + first.width < second.x ||
+      first.y > second.y + second.height ||
+      first.y + first.height < second.y
+    )
+  ) {
+    return true;
+  }
+}
+
+
+
+
