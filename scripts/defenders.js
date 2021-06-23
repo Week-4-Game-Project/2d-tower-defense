@@ -167,7 +167,7 @@ function handleProjectiles() {
         projectiles.splice(i, 1);
         enemies[j].shadowColor = "red";
         setTimeout(function () {
-          enemies[j].shadowColor = "green";
+          //enemies[j].shadowColor = "green";
         }, 1000);
 
         i--;
