@@ -25,7 +25,7 @@ const projectiles = [];
 const resources = [];
 
 // Debugging cheats
-let defenderShotInterval = 10; // Frequency of defender attack. Lower # means faster shooting
+let defenderShotInterval = 15; // Frequency of defender attack. Lower # means faster shooting
 let resourceFrequency = 100; // Frequency of resource spawn. Lower # means faster spawn
 // For more shooting power, edit this.power on Projectile class
 

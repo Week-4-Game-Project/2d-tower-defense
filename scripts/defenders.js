@@ -16,7 +16,9 @@ class Defender {
     this.spriteHeight = 130;
     this.minFrame = 0;
     this.maxFrame = 23;
-    this.chosenDefender = chosenDefender;
+    this.chosenDefender = chosenDefender;  //declared sound variable
+    // this.sound = new Audio();  //declared sound variable
+    // this.sound.src = 'lasergun1.wav';  //declared sound variable
   }
   draw() {
     // ctx.fillStyle = "blue";
@@ -71,8 +73,9 @@ class Defender {
     if (this.shooting && this.shootNow) {
       projectiles.push(new Projectile(this.x + 70, this.y + 45));
       this.shootNow = false;
-      // sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
+      // sound.src = "./sounds/click5.ogg"; //play sound when defender shooting
       // sound.play();
+    
     }
   }
 }
@@ -161,15 +164,16 @@ function handleProjectiles() {
       if (
         enemies[j] &&
         projectiles[i] &&
-        collision(projectiles[i], enemies[j])
+        collision(projectiles[i], enemies[j]) 
       ) {
+        // sound.src = "./sounds/ouch.wav"; //play sound when enemy gets shot
+        // sound.play();  //play sound when enemy gets shot
         enemies[j].health -= projectiles[i].power; //Health removed enemy
         projectiles.splice(i, 1);
         enemies[j].shadowColor = "red";
         setTimeout(function () {
           //enemies[j].shadowColor = "green";
         }, 1000);
-
         i--;
       }
     }
@@ -239,8 +243,8 @@ class Shield {
     if (this.shooting && this.shootNow) {
       //projectiles.push(new Projectile(this.x + 70, this.y + 45));
       this.shootNow = false;
-      sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
-      sound.play();
+      // sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
+      // sound.play();
     }
   }
 }

@@ -22,9 +22,9 @@ function animate() {
 function startGame() {
   console.log("startGame() function called!"); //debug
   sound.src = "./sounds/gamesong.mp3";    //play the music while game is in progress
-  sound.play();
-  sound.volume = 0.02;
-  if(gameOver);
+  sound.play();  //play the music while game is in progress
+  sound.volume = 0.02;  //play the music while game is in progress
+  if(gameOver); 
   animate();
 }
 test()

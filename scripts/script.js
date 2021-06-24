@@ -134,7 +134,7 @@ function handleEnemies() {
         )
       );
       floatingMessages.push(
-        new floatingMessage("+" + gainedResources, 250, 50, 30, "gold")
+        new floatingMessage("+" + gainedResources, 250, 50, 30, "black")
       );
       numberOfResources += gainedResources; // Gain resources based on enemy health
       score += gainedResources; //Same for score
@@ -204,6 +204,8 @@ function handleGameStatus() {
       ctx.fillText("GAME COMPLETE", 130, 320);
       ctx.font = "30px Orbitron";
       ctx.fillText("You win with " + score + " points!", 134, 370);
+      // sound.src = "./sounds/gameover.wav"; 
+      // sound.play();
       // const button = document.getElementById("play-again"); // ADDED
       button.style.visibility = "visible";
       // button.addEventListener("click", () => {
