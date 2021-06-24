@@ -71,19 +71,18 @@ class Defender {
     if (this.shooting && this.shootNow) {
       projectiles.push(new Projectile(this.x + 70, this.y + 40));
       this.shootNow = false;
-       //sound.src = "./sounds/click5.ogg"; //play sound when defender shooting
-       sound2.play();
-    
+      //sound.src = "./sounds/click5.ogg"; //play sound when defender shooting
+      sound2.play();
     }
   }
 }
 
 const defender1 = new Image();
-defender1.src = "../images/pink-spritesheet.png";
+defender1.src = "./images/pink-spritesheet.png";
 const defender2 = new Image();
-defender2.src = "../images/purple-spritesheet.png";
+defender2.src = "./images/purple-spritesheet.png";
 const defender3 = new Image();
-defender3.src = "../images/defender3.png";
+defender3.src = "./images/defender3.png";
 
 // Draw defenders array on game board
 function handleDefenders() {
@@ -114,7 +113,7 @@ function handleDefenders() {
 }
 
 const projectile = new Image();
-projectile.src = "../images/projectile1.png";
+projectile.src = "./images/projectile1.png";
 // PROJECTILES
 class Projectile {
   constructor(x, y) {
@@ -164,10 +163,10 @@ function handleProjectiles() {
       if (
         enemies[j] &&
         projectiles[i] &&
-        collision(projectiles[i], enemies[j]) 
+        collision(projectiles[i], enemies[j])
       ) {
         // sound.src = "./sounds/ouch.wav"; //play sound when enemy gets shot
-        sound3.play();  //play sound when enemy gets shot
+        sound3.play(); //play sound when enemy gets shot
         enemies[j].health -= projectiles[i].power; //Health removed enemy
         projectiles.splice(i, 1);
         enemies[j].shadowColor = "red";
@@ -243,7 +242,7 @@ class Shield {
     if (this.shooting && this.shootNow) {
       //projectiles.push(new Projectile(this.x + 70, this.y + 45));
       this.shootNow = false;
-     // sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
+      // sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
       sound2.play();
     }
   }
