@@ -41,7 +41,7 @@ body {
 }
 
 #intro {
-  background-image: url(../images/Poster1.jpg);
+  background-image: url(../images/coverimage.png);
   background-position: center;
   background-size: cover;
   width: 900px;

@@ -114,31 +114,33 @@ function handleDefenders() {
 }
 
 const projectile = new Image();
-projectile.src = "../images/projectile.png";
+projectile.src = "../images/projectile1.png";
 // PROJECTILES
 class Projectile {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.width = 10;
-    this.height = 10;
+    this.width = 20;
+    this.height = 20;
     this.power = 20; // Projectile power. Normal 20, set to 400 to debug faster
     this.speed = 5;
     this.frameX = 0;
     this.frameY = 0;
-    this.spriteWidth = 136;
-    this.spriteHeight = 34;
+    this.spriteWidth = 250;
+    this.spriteHeight = 250;
     this.minFrame = 0;
     this.maxFrame = 3;
   }
   update() {
     this.x += this.speed;
+    if (this.frameX < this.maxFrame) this.frameX++;
+    else this.frameX = this.minFrame;
   }
   draw() {
-    ctx.fillStyle = "purple";
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2);
-    ctx.fill();
+    // ctx.fillStyle = "purple";
+    // ctx.beginPath();
+    // ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2);
+    // ctx.fill();
     ctx.drawImage(
       projectile,
       this.frameX * this.spriteWidth,

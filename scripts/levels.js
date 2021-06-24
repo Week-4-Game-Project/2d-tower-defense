@@ -1,8 +1,8 @@
 let backgroundImage = new Image();
-backgroundImage.src = "./images/alien-planet-sand.png";
+backgroundImage.src = "./images/level3background.png";
 
 let backgroundImage2 = new Image();
-backgroundImage2.src = "./images/background2.png";
+backgroundImage2.src = "./images/level2background.png";
 
 let backgroundImage3 = new Image();
 backgroundImage3.src = "./images/background3.png";
@@ -25,8 +25,6 @@ const levels = [
   },
 ];
 
-
-
 let level = 0;
 
 const button = document.getElementById("play-again"); // ADDED
@@ -48,13 +46,9 @@ document.getElementById("start-button").onclick = () => {
   startGame();
 };
 
-
 window.addEventListener("resize", function () {
   canvasPosition = canvas.getBoundingClientRect();
 });
-
-
-
 
 // Collision detection function
 function collision(first, second) {
@@ -70,6 +64,3 @@ function collision(first, second) {
     return true;
   }
 }
-
-
-
