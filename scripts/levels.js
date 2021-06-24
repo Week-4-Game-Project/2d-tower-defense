@@ -1,8 +1,8 @@
 let backgroundImage = new Image();
-backgroundImage.src = "./images/level3background.png";
+backgroundImage.src = "./images/anotherbackground.png";
 
 let backgroundImage2 = new Image();
-backgroundImage2.src = "./images/level2background.png";
+backgroundImage2.src = "./images/newbackgroundimage.png";
 
 let backgroundImage3 = new Image();
 backgroundImage3.src = "./images/background3.png";

@@ -12,8 +12,8 @@ class Defender {
     this.timer = 0; // Periodically trigger defender actions
     this.frameX = 0;
     this.frameY = 0;
-    this.spriteWidth = 130;
-    this.spriteHeight = 130;
+    this.spriteWidth = 150;
+    this.spriteHeight = 150;
     this.minFrame = 0;
     this.maxFrame = 25;
     this.chosenDefender = chosenDefender;
@@ -69,7 +69,7 @@ class Defender {
     }
     // Make sure animation and projectile shoot at same time
     if (this.shooting && this.shootNow) {
-      projectiles.push(new Projectile(this.x + 70, this.y + 45));
+      projectiles.push(new Projectile(this.x + 70, this.y + 40));
       this.shootNow = false;
       // sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
       // sound.play();
@@ -78,9 +78,9 @@ class Defender {
 }
 
 const defender1 = new Image();
-defender1.src = "../images/defender1.png";
+defender1.src = "../images/pink-spritesheet.png";
 const defender2 = new Image();
-defender2.src = "../images/defender2.png";
+defender2.src = "../images/purple-spritesheet.png";
 const defender3 = new Image();
 defender3.src = "../images/defender3.png";
 

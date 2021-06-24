@@ -53,17 +53,17 @@ function chooseDefender() {
   ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
   ctx.strokeStyle = card1stroke;
   ctx.strokeRect(card1.x, card1.y, card1.width, card1.height);
-  ctx.drawImage(defender1, 0, 0, 130, 130, 15, 15, 130 / 2, 130 / 2);
+  ctx.drawImage(defender1, 0, 0, 130, 130, 10, 15, 130 / 2, 130 / 2);
   // Defender 2 card draw
   ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
   ctx.strokeStyle = card2stroke;
   ctx.strokeRect(card2.x, card2.y, card2.width, card2.height);
-  ctx.drawImage(defender2, 0, 0, 130, 130, 95, 15, 130 / 2, 130 / 2);
+  ctx.drawImage(defender2, 0, 0, 130, 130, 85, 15, 130 / 2, 130 / 2);
   // Defender 3 card draw
   ctx.fillRect(card3.x, card3.y, card3.width, card3.height);
   ctx.strokeStyle = card3stroke;
   ctx.strokeRect(card3.x, card3.y, card3.width, card3.height);
-  ctx.drawImage(defender3, 0, 0, 130, 130, 175, 15, 130 / 2, 130 / 2);
+  ctx.drawImage(defender3, 0, 0, 130, 130, 165, 15, 130 / 2, 130 / 2);
 }
 
 // FLOATING MESSAGES

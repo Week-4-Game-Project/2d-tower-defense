@@ -38,60 +38,60 @@ class Resource {
 }
 
 function handleResources() {
-    if (frame % resourceFrequency === 0 && score < winningScore) {
-      resources.push(new Resource());
-    }
-    for (let i = 0; i < resources.length; i++) {
-      resources[i].draw();
-      if (resources[i] && mouse.x && mouse.y && collision(resources[i], mouse)) {
-        numberOfResources += resources[i].amount;
-        floatingMessages.push(
-          new floatingMessage(
-            "+" + resources[i].amount,
-            resources[i].x,
-            resources[i].y,
-            30,
-            "black"
-          )
-        );
-        floatingMessages.push(
-          new floatingMessage("+" + resources[i].amount, 250, 50, 30, "gold")
-        );
-        resources.splice(i, 1);
-        i--;
-      }
+  if (frame % resourceFrequency === 0 && score < winningScore) {
+    resources.push(new Resource());
+  }
+  for (let i = 0; i < resources.length; i++) {
+    resources[i].draw();
+    if (resources[i] && mouse.x && mouse.y && collision(resources[i], mouse)) {
+      numberOfResources += resources[i].amount;
+      floatingMessages.push(
+        new floatingMessage(
+          "+" + resources[i].amount,
+          resources[i].x,
+          resources[i].y,
+          30,
+          "black"
+        )
+      );
+      floatingMessages.push(
+        new floatingMessage("+" + resources[i].amount, 250, 50, 30, "gold")
+      );
+      resources.splice(i, 1);
+      i--;
     }
   }
+}
 
 // Cell blueprint
 class Cell {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.width = cellSize;
-      this.height = cellSize;
-    }
-    draw() {
-      if (mouse.x && mouse.y && collision(this, mouse)) {
-        // Cell highlight on mouseover: If mouse x and y have coordinates (ie. not outside canvas), AND there is collision between THIS cell object and MOUSE, then draw() the cell outline
-        ctx.strokeStyle = "black";
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
-      }
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.width = cellSize;
+    this.height = cellSize;
+  }
+  draw() {
+    if (mouse.x && mouse.y && collision(this, mouse)) {
+      // Cell highlight on mouseover: If mouse x and y have coordinates (ie. not outside canvas), AND there is collision between THIS cell object and MOUSE, then draw() the cell outline
+      ctx.strokeStyle = "black";
+      ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
   }
+}
 
-  // Function to populate gameGrid array with Cell objects.
+// Function to populate gameGrid array with Cell objects.
 function createGrid() {
-    for (let y = cellSize; y < canvas.height; y += cellSize) {
-      for (let x = 0; x < canvas.width; x += cellSize) {
-        gameGrid.push(new Cell(x, y));
-      }
+  for (let y = cellSize; y < canvas.height; y += cellSize) {
+    for (let x = 0; x < canvas.width; x += cellSize) {
+      gameGrid.push(new Cell(x, y));
     }
   }
-  createGrid();
-  // Draws the board gridlines
-  function handleGameGrid() {
-    for (let i = 0; i < gameGrid.length; i++) {
-      gameGrid[i].draw();
-    }
+}
+createGrid();
+// Draws the board gridlines
+function handleGameGrid() {
+  for (let i = 0; i < gameGrid.length; i++) {
+    gameGrid[i].draw();
   }
+}
