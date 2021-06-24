@@ -82,7 +82,7 @@ defender1.src = "./images/pink-spritesheet.png";
 const defender2 = new Image();
 defender2.src = "./images/purple-spritesheet.png";
 const defender3 = new Image();
-defender3.src = "./images/defender3.png";
+defender3.src = "./images/green-spritesheet.png";
 
 // Draw defenders array on game board
 function handleDefenders() {
@@ -197,8 +197,8 @@ class Shield {
     this.timer = 0; // Periodically trigger defender actions
     this.frameX = 0;
     this.frameY = 0;
-    this.spriteWidth = 130;
-    this.spriteHeight = 130;
+    this.spriteWidth = 150;
+    this.spriteHeight = 150;
     this.minFrame = 0;
     this.maxFrame = 25;
     this.chosenDefender = chosenDefender;
