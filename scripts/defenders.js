@@ -71,8 +71,8 @@ class Defender {
     if (this.shooting && this.shootNow) {
       projectiles.push(new Projectile(this.x + 70, this.y + 45));
       this.shootNow = false;
-      // sound.src = "./sounds/click5.ogg"; //play sound when defender shooting
-      // sound.play();
+       //sound.src = "./sounds/click5.ogg"; //play sound when defender shooting
+       sound2.play();
     
     }
   }
@@ -167,7 +167,7 @@ function handleProjectiles() {
         collision(projectiles[i], enemies[j]) 
       ) {
         // sound.src = "./sounds/ouch.wav"; //play sound when enemy gets shot
-        // sound.play();  //play sound when enemy gets shot
+        sound3.play();  //play sound when enemy gets shot
         enemies[j].health -= projectiles[i].power; //Health removed enemy
         projectiles.splice(i, 1);
         enemies[j].shadowColor = "red";
@@ -243,8 +243,8 @@ class Shield {
     if (this.shooting && this.shootNow) {
       //projectiles.push(new Projectile(this.x + 70, this.y + 45));
       this.shootNow = false;
-      // sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
-      // sound.play();
+     // sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
+      sound2.play();
     }
   }
 }

@@ -41,7 +41,7 @@ body {
 }
 
 #intro {
-  background-image: url(../images/coverimage.png);
+  background-image: url(../images/HomeBackground.png);
   background-position: center;
   background-size: cover;
   width: 900px;
@@ -52,7 +52,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: thistle;
+  
 }
 
 #play-again {
