@@ -37,8 +37,8 @@ class Enemy {
     //ctx.fillStyle = "black"; // Draws enemy health points
     // ctx.font = "30px Orbitron";
     // ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
-    ctx.shadowColor = this.shadowColor;
-    ctx.shadowBlur = 15;
+    // ctx.shadowColor = this.shadowColor;
+    // ctx.shadowBlur = 15;
 
     ctx.drawImage(
       this.enemyType,
@@ -51,7 +51,7 @@ class Enemy {
       this.width,
       this.height
     );
-    ctx.shadowColor = "";
-    ctx.shadowBlur = 0;
+    // ctx.shadowColor = "";
+    // ctx.shadowBlur = 0;
   }
 }
