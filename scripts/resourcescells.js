@@ -1,6 +1,6 @@
 // RESOURCES
 const resourcesImg = new Image();
-resourcesImg.src = "../images/acorn-resource-160px.png";
+resourcesImg.src = "./images/acorn-resource-160px.png";
 const amounts = [20, 30, 40];
 class Resource {
   constructor() {
