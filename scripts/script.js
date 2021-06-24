@@ -134,7 +134,7 @@ function handleEnemies() {
         )
       );
       floatingMessages.push(
-        new floatingMessage("+" + gainedResources, 250, 50, 30, "gold")
+        new floatingMessage("+" + gainedResources, 250, 50, 30, "black")
       );
       numberOfResources += gainedResources; // Gain resources based on enemy health
       score += gainedResources; //Same for score

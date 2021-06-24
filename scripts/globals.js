@@ -14,6 +14,10 @@ let score = 0;
 let winningScore = 20;
 let chosenDefender = 1;
 let sound = document.createElement("audio"); //adding sound
+let sound2 = new Audio();
+let sound3 = new Audio();
+sound2.src = "./sounds/lasergun1.wav";
+sound3.src = "/sounds/ouch.wav"
 let nextLevel = true;
 let lastLevel = false;
 

@@ -55,7 +55,7 @@ function handleResources() {
         )
       );
       floatingMessages.push(
-        new floatingMessage("+" + resources[i].amount, 250, 50, 30, "gold")
+        new floatingMessage("+" + resources[i].amount, 250, 50, 30, "black")
       );
       resources.splice(i, 1);
       i--;
