@@ -1,6 +1,6 @@
 // RESOURCES
 const resourcesImg = new Image();
-resourcesImg.src = "../images/resources.png";
+resourcesImg.src = "../images/acorn-resource-160px.png";
 const amounts = [20, 30, 40];
 class Resource {
   constructor() {
@@ -25,10 +25,10 @@ class Resource {
     // ctx.fillText(this.amount, this.x + 15, this.y + 25);
     ctx.drawImage(
       resourcesImg,
-      this.frameX * this.spriteWidth,
-      0,
-      this.spriteWidth,
-      this.spriteHeight,
+      // this.frameX * this.spriteWidth,
+      // 0,
+      // this.spriteWidth,
+      // this.spriteHeight,
       this.x,
       this.y,
       this.width,
