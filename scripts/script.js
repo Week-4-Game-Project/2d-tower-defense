@@ -189,7 +189,7 @@ function handleGameStatus() {
   ctx.font = "30px Orbitron";
   ctx.fillText("Score: " + score, 260, 40);
   ctx.fillText("Resources: " + numberOfResources, 260, 80);
-
+  
   if (score >= 250 && score <=280) {
     ctx.fillStyle = "black";
     ctx.font = "60px Orbitron";
