@@ -106,13 +106,13 @@ const enemy1 = new Image();
 enemy1.src = "../images/enemy1.png";
 enemyTypes.push(enemy1);
 
-// const enemy2 = new Image();
-// enemy2.src = "../images/enemy2.png";
-// enemyTypes.push(enemy2);
+const enemy2 = new Image();
+enemy2.src = "../images/enemy2.png";
+enemyTypes.push(enemy2);
 
-// const enemy3 = new Image();
-// enemy3.src = "../images/enemy3.png";
-// enemyTypes.push(enemy3);
+const enemy3 = new Image();
+enemy3.src = "../images/enemy3.png";
+enemyTypes.push(enemy3);
 
 // Draws enemies array one time
 function handleEnemies() {
@@ -193,59 +193,59 @@ function handleGameStatus() {
   //   enemies.length === 0 &&
   //   level == 2
   // ) {
-    // Game won
-    if (
-      score >= levels[level].winningScore &&
-      enemies.length === 0 &&
-      level == 2
-    ) {
-      ctx.fillStyle = "black";
-      ctx.font = "60px Orbitron";
-      ctx.fillText("GAME COMPLETE", 130, 320);
-      ctx.font = "30px Orbitron";
-      ctx.fillText("You win with " + score + " points!", 134, 370);
-      // const button = document.getElementById("play-again"); // ADDED
-      button.style.visibility = "visible";
-      // button.addEventListener("click", () => {
-      //   console.log("button", button);
-      //   button.style.visibility = "hidden";
-      //   window.location.reload();
-      //   ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      // });
+  // Game won
+  if (
+    score >= levels[level].winningScore &&
+    enemies.length === 0 &&
+    level == 2
+  ) {
+    ctx.fillStyle = "black";
+    ctx.font = "60px Orbitron";
+    ctx.fillText("GAME COMPLETE", 130, 320);
+    ctx.font = "30px Orbitron";
+    ctx.fillText("You win with " + score + " points!", 134, 370);
+    // const button = document.getElementById("play-again"); // ADDED
+    button.style.visibility = "visible";
+    // button.addEventListener("click", () => {
+    //   console.log("button", button);
+    //   button.style.visibility = "hidden";
+    //   window.location.reload();
+    //   ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    // });
 
-      // Next level
-    } else if (
-      score >= levels[level].winningScore &&
-      enemies.length === 0 &&
-      nextLevel
-    ) {
-      nextLevel = false;
-      level++;
-      setTimeout(function () {
-        winningScore = levels[level].winningScore;
-        nextLevel = true;
-        //defenders = [];
-      }, 3000);
-    }
-    if (gameOver) {
-    }
-    // Game over
-    if (gameOver) {
-      ctx.fillStyle = "black";
-      ctx.font = "90px Orbitron";
-      ctx.fillText("GAME OVER", 135, 320);
-      sound.src = "./sounds/funnySong.mp3";
-      sound.play();
-      // const button = document.getElementById("play-again"); // Play again button
-      button.style.visibility = "visible";
-      // button.addEventListener("click", () => {
-      //   console.log("button", button);
-      //   button.style.visibility = "hidden";
-      //   window.location.reload();
-      //   ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      // });
-    }
+    // Next level
+  } else if (
+    score >= levels[level].winningScore &&
+    enemies.length === 0 &&
+    nextLevel
+  ) {
+    nextLevel = false;
+    level++;
+    setTimeout(function () {
+      winningScore = levels[level].winningScore;
+      nextLevel = true;
+      //defenders = [];
+    }, 3000);
   }
+  if (gameOver) {
+  }
+  // Game over
+  if (gameOver) {
+    ctx.fillStyle = "black";
+    ctx.font = "90px Orbitron";
+    ctx.fillText("GAME OVER", 135, 320);
+    sound.src = "./sounds/funnySong.mp3";
+    sound.play();
+    // const button = document.getElementById("play-again"); // Play again button
+    button.style.visibility = "visible";
+    // button.addEventListener("click", () => {
+    //   console.log("button", button);
+    //   button.style.visibility = "hidden";
+    //   window.location.reload();
+    //   ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    // });
+  }
+}
 // }
 // Defender summon on mouse click
 canvas.addEventListener("click", function () {

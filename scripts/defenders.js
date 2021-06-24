@@ -15,7 +15,7 @@ class Defender {
     this.spriteWidth = 130;
     this.spriteHeight = 130;
     this.minFrame = 0;
-    this.maxFrame = 23;
+    this.maxFrame = 25;
     this.chosenDefender = chosenDefender;
   }
   draw() {
@@ -55,17 +55,17 @@ class Defender {
     if (frame % defenderShotInterval === 0) {
       if (this.frameX < this.maxFrame) this.frameX++;
       else this.frameX = this.minFrame;
-      if (this.frameX === 10) this.shootNow = true;
+      if (this.frameX === 22) this.shootNow = true;
     }
     // Synchronize shooting animation frames
     if (this.shooting) {
-      this.minFrame = 0;
-      this.maxFrame = 11;
+      this.minFrame = 20;
+      this.maxFrame = 25;
     }
     // Synchronize idle frames
     else {
-      this.minFrame = 12;
-      this.maxFrame = 23;
+      this.minFrame = 0;
+      this.maxFrame = 19;
     }
     // Make sure animation and projectile shoot at same time
     if (this.shooting && this.shootNow) {
@@ -197,7 +197,7 @@ class Shield {
     this.spriteWidth = 130;
     this.spriteHeight = 130;
     this.minFrame = 0;
-    this.maxFrame = 23;
+    this.maxFrame = 25;
     this.chosenDefender = chosenDefender;
   }
   draw() {
@@ -227,13 +227,13 @@ class Shield {
     }
     // Synchronize shooting animation frames
     if (this.shooting) {
-      this.minFrame = 0;
-      this.maxFrame = 11;
+      this.minFrame = 20;
+      this.maxFrame = 25;
     }
     // Synchronize idle frames
     else {
-      this.minFrame = 12;
-      this.maxFrame = 23;
+      this.minFrame = 0;
+      this.maxFrame = 19;
     }
     // Make sure animation and projectile shoot at same time
     if (this.shooting && this.shootNow) {
