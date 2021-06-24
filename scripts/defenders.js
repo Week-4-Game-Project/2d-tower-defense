@@ -206,9 +206,9 @@ class Shield {
   draw() {
     // ctx.fillStyle = "blue";
     // ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = "gold";
-    ctx.font = "30px Orbitron";
-    ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
+    // ctx.fillStyle = "gold";
+    // ctx.font = "30px Orbitron";
+    // ctx.fillText(Math.floor(this.health), this.x + 25, this.y + 30); // Display health
     ctx.drawImage(
       defender3,
       this.frameX * this.spriteWidth,
@@ -243,7 +243,7 @@ class Shield {
       //projectiles.push(new Projectile(this.x + 70, this.y + 45));
       this.shootNow = false;
       // sound.src = "./sounds/laser-shot.wav"; //play sound when defender shooting
-      sound2.play();
+      //sound2.play();
     }
   }
 }
