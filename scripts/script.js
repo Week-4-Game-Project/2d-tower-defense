@@ -150,7 +150,7 @@ function handleEnemies() {
       Math.floor(Math.random() * 5 + 1) * cellSize + cellGap;
     enemies.push(new Enemy(verticalPosition, verticalPosition));
     enemyPositions.push(verticalPosition);
-    if (enemiesInterval > 120) enemiesInterval -= 50;
+    if (enemiesInterval > 70) enemiesInterval -= 50;
   }
 }
 

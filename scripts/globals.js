@@ -7,11 +7,11 @@ canvas.height = 600;
 const cellSize = 100; // Size of each game board cell
 const cellGap = 3; // Gap between cells
 let numberOfResources = 300;
-let enemiesInterval = 600; // Enemy spawn interval
+let enemiesInterval = 200; // Enemy spawn interval
 let frame = 0;
 let gameOver = false;
 let score = 0;
-let winningScore = 20;
+let winningScore = 250; //must be level 1 winning score
 let chosenDefender = 1;
 let sound = document.createElement("audio"); //adding sound
 let sound2 = new Audio();
@@ -30,7 +30,7 @@ const resources = [];
 
 // Debugging cheats
 let defenderShotInterval = 8; // Frequency of defender attack. Lower # means faster shooting
-let resourceFrequency = 100; // Frequency of resource spawn. Lower # means faster spawn
+let resourceFrequency = 500; // Frequency of resource spawn. Lower # means faster spawn
 // For more shooting power, edit this.power on Projectile class
 
 // mouse
