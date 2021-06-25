@@ -180,8 +180,6 @@ function handleResources() {
   }
 }
 
-
-
 // UTILITIES
 // Draw game status on game bar (resources, defenders, etc)
 function handleGameStatus() {
@@ -189,26 +187,24 @@ function handleGameStatus() {
   ctx.font = "30px Orbitron";
   ctx.fillText("Score: " + score, 260, 40);
   ctx.fillText("Resources: " + numberOfResources, 260, 80);
-  if(score >= 500){
-    sound1.playbackRate=1.5;
-    }
-  if(score >= 1000){
-      sound1.playbackRate=1.7;
-      }
-
-  if (score >= 500 && score <=550) {
-    ctx.fillStyle = "black";
-    ctx.font = "60px Orbitron";
-    ctx.fillText("LEVEL 2",580, 70);
-    ctx.font = "30px Orbitron";
-    
+  if (score >= 500) {
+    sound1.playbackRate = 1.5;
   }
-  if (score >=1000 && score <=1050) {
+  if (score >= 1000) {
+    sound1.playbackRate = 1.7;
+  }
+
+  if (score >= 500 && score <= 550) {
     ctx.fillStyle = "black";
     ctx.font = "60px Orbitron";
-    ctx.fillText("LEVEL 3",580, 70);
+    ctx.fillText("LEVEL 2", 580, 70);
     ctx.font = "30px Orbitron";
-    
+  }
+  if (score >= 1000 && score <= 1050) {
+    ctx.fillStyle = "black";
+    ctx.font = "60px Orbitron";
+    ctx.fillText("LEVEL 3", 580, 70);
+    ctx.font = "30px Orbitron";
   }
   if (
     score >= levels[level].winningScore &&
