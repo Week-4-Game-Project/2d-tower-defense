@@ -187,14 +187,14 @@ function handleGameStatus() {
   ctx.font = "30px Orbitron";
   ctx.fillText("Score: " + score, 260, 40);
   ctx.fillText("Resources: " + numberOfResources, 260, 80);
-  if (score >= 500) {
-    sound1.playbackRate = 1.5;
+  if (score >= 450) {
+    sound1.playbackRate = 1.4;
   }
   if (score >= 1000) {
-    sound1.playbackRate = 1.7;
+    sound1.playbackRate = 1.6;
   }
 
-  if (score >= 500 && score <= 550) {
+  if (score >= 450 && score <= 480) {
     ctx.fillStyle = "black";
     ctx.font = "60px Orbitron";
     ctx.fillText("LEVEL 2", 580, 70);
@@ -237,7 +237,7 @@ function handleGameStatus() {
       winningScore = levels[level].winningScore;
       nextLevel = true;
       //defenders = [];
-    }, 3000);
+    }, 1000);
   }
   if (gameOver) {
   }
