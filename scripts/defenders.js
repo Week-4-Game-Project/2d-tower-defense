@@ -157,7 +157,7 @@ class Projectile {
       this.height
     );
   }
-  ouch(){
+  ouch() {
     //this.ouchSound.play(); // Plays ouch sound when called
   }
 }
@@ -174,7 +174,7 @@ function handleProjectiles() {
         collision(projectiles[i], enemies[j])
       ) {
         // sound.src = "./sounds/ouch.wav"; //play sound when enemy gets shot
-        sound3.play(); //play sound when enemy gets shot
+        // sound3.play(); //play sound when enemy gets shot
         //projectiles[i].ouch(); // Play sound when enemy gets shot
         enemies[j].health -= projectiles[i].power; //Health removed enemy
         projectiles.splice(i, 1);
@@ -183,6 +183,9 @@ function handleProjectiles() {
           //enemies[j].shadowColor = "green";
         }, 1000);
         i--;
+      }
+      if (frame % 200 === 0) {
+        sound3.play();
       }
     }
     // Removes projectile when it exits canvas border
