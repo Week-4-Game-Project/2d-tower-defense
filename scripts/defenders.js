@@ -17,6 +17,8 @@ class Defender {
     this.minFrame = 0;
     this.maxFrame = 25;
     this.chosenDefender = chosenDefender;
+    this.shotgunSound = new Audio();
+    this.shotgunSound.src = "./sounds/shotgun3.wav";
   }
   draw() {
     // ctx.fillStyle = "blue";
@@ -72,7 +74,8 @@ class Defender {
       projectiles.push(new Projectile(this.x + 70, this.y + 40));
       this.shootNow = false;
       //sound.src = "./sounds/click5.ogg"; //play sound when defender shooting
-      sound2.play();
+      //sound2.play();
+      this.shotgunSound.play();
     }
   }
 }
@@ -129,6 +132,8 @@ class Projectile {
     this.spriteHeight = 250;
     this.minFrame = 0;
     this.maxFrame = 3;
+    this.ouchSound = new Audio();
+    this.ouchSound.src = "./sounds/ouch.wav";
   }
   update() {
     this.x += this.speed;
@@ -152,6 +157,9 @@ class Projectile {
       this.height
     );
   }
+  ouch(){
+    this.ouchSound.play(); // Plays ouch sound when called
+  }
 }
 function handleProjectiles() {
   for (let i = 0; i < projectiles.length; i++) {
@@ -166,10 +174,11 @@ function handleProjectiles() {
         collision(projectiles[i], enemies[j])
       ) {
         // sound.src = "./sounds/ouch.wav"; //play sound when enemy gets shot
-        sound3.play(); //play sound when enemy gets shot
+        //sound3.play(); //play sound when enemy gets shot
+        projectiles[i].ouch(); // Play sound when enemy gets shot
         enemies[j].health -= projectiles[i].power; //Health removed enemy
         projectiles.splice(i, 1);
-        enemies[j].shadowColor = "red";
+        //enemies[j].shadowColor = "red";
         setTimeout(function () {
           //enemies[j].shadowColor = "green";
         }, 1000);
