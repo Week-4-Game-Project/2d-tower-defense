@@ -21,9 +21,9 @@ function animate() {
 // Call animate function manually
 function startGame() {
   console.log("startGame() function called!"); //debug
-  sound.src = "./sounds/gamesong.mp3";    //play the music while game is in progress
-  sound.play();  //play the music while game is in progress
-  sound.volume = 0.05;  //play the music while game is in progress
+  //sound.src = "./sounds/gamesong.mp3";    //play the music while game is in progress
+  sound1.play();  //play the music while game is in progress
+  sound1.volume = 0.25;  //play the music while game is in progress
   if(gameOver); 
   animate();
 }
