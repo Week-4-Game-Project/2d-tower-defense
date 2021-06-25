@@ -142,7 +142,7 @@ function handleEnemies() {
       enemyPositions.splice(findThisIndex, 1);
       enemies.splice(i, 1);
       i--;
-      console.log(enemyPositions);
+      //console.log(enemyPositions);
     }
   }
   if (frame % enemiesInterval === 0 && score < winningScore) {
