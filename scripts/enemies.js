@@ -20,7 +20,7 @@ class Enemy {
     }
     this.spriteWidth = 130;
     this.spriteHeight = 130;
-    this.shadowColor = "green";
+    //this.shadowColor = "green";
   }
   // Moves enemy slowly to the left
   update() {
