@@ -20,7 +20,7 @@ let sound3 = new Audio();
 sound1.src = "./sounds/gamesong.mp3"
 sound1.loop = true;
 sound2.src = "./sounds/shotgun3.wav";
-sound3.src = "./sounds/ouch2.wav";
+sound3.src = "./sounds/ouch.wav";
 let nextLevel = true;
 let lastLevel = false;
 
