@@ -188,10 +188,10 @@ function handleGameStatus() {
   ctx.fillText("Score: " + score, 260, 40);
   ctx.fillText("Resources: " + numberOfResources, 260, 80);
   if (score >= 450) {
-    sound1.playbackRate = 1.4;
+    sound1.playbackRate = 1.0;
   }
   if (score >= 1000) {
-    sound1.playbackRate = 1.6;
+    sound1.playbackRate = 1.0;
   }
 
   if (score >= 450 && score <= 480) {
@@ -243,7 +243,7 @@ function handleGameStatus() {
   }
   // Game over
   if (gameOver) {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "black"; //added black color
     ctx.font = "90px Orbitron";
     ctx.fillText("GAME OVER", 135, 320);
     sound.src = "./sounds/funnySong.mp3";
