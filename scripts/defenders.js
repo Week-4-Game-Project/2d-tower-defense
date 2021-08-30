@@ -157,9 +157,9 @@ class Projectile {
       this.height
     );
   }
-  ouch() {
-    //this.ouchSound.play(); // Plays ouch sound when called
-  }
+  // ouch() {
+  //   //this.ouchSound.play(); // Plays ouch sound when called
+  // }
 }
 function handleProjectiles() {
   for (let i = 0; i < projectiles.length; i++) {
